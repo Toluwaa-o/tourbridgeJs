@@ -46,23 +46,38 @@ export const Step = ({ idx, step, updateStep }: StepProps) => {
                 onChange={(e) => updateStep(idx, "button_text", e.target.value)}
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <Input
-                    type="color"
-                    value={step.bg_color}
-                    onChange={(e) => updateStep(idx, "bg_color", e.target.value)}
-                />
-                <Input
-                    type="color"
-                    value={step.text_color}
-                    onChange={(e) => updateStep(idx, "text_color", e.target.value)}
-                />
-                <Input
-                    type="color"
-                    value={step.highlight_color}
-                    onChange={(e) => updateStep(idx, "highlight_color", e.target.value)}
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="space-y-1">
+                    <label className="text-sm font-medium text-gray-700">Background</label>
+                    <Input
+                        type="color"
+                        value={step.bg_color}
+                        onChange={(e) => updateStep(idx, "bg_color", e.target.value)}
+                        className="h-10 p-1"
+                    />
+                </div>
+
+                <div className="space-y-1">
+                    <label className="text-sm font-medium text-gray-700">Text</label>
+                    <Input
+                        type="color"
+                        value={step.text_color}
+                        onChange={(e) => updateStep(idx, "text_color", e.target.value)}
+                        className="h-10 p-1"
+                    />
+                </div>
+
+                <div className="space-y-1">
+                    <label className="text-sm font-medium text-gray-700">Highlight</label>
+                    <Input
+                        type="color"
+                        value={step.highlight_color}
+                        onChange={(e) => updateStep(idx, "highlight_color", e.target.value)}
+                        className="h-10 p-1"
+                    />
+                </div>
             </div>
+
         </div>
     );
 };

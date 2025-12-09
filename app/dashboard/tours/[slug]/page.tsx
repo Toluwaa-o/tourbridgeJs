@@ -1,18 +1,19 @@
+'use client'
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { steps } from "@/data/tours";
 
-const stepEvents = [
-    { step: "Step 1", started: 1200, completed: 950, skipped: 250 },
-    { step: "Step 2", started: 950, completed: 700, skipped: 250 },
-    { step: "Step 3", started: 700, completed: 540, skipped: 160 },
-    { step: "Step 4", started: 540, completed: 480, skipped: 60 },
-    { step: "Step 5", started: 480, completed: 460, skipped: 20 },
-];
 
-export default function TourDetailsPage() {
+// export const findTourById => (id: number) {
+//     return tours.find(tour => tour.id === id);
+// }
+
+export default function TourDetailsPage({ params }: { params: { slug: string } }) {
+    const { slug } = params;
     return (
-        <div className="min-h-screen bg-white text-gray-900 p-10">
+        <div className="min-h-screen bg-white text-gray-900 p-10  w-full">
             {/* Header */}
             <header className="flex items-center justify-between mb-10">
                 <div>
@@ -51,7 +52,7 @@ export default function TourDetailsPage() {
                     <CardContent className="p-6">
                         <h2 className="text-lg font-semibold mb-4">Steps</h2>
                         <ul className="space-y-4">
-                            {stepEvents.map((s, i) => (
+                            {steps.map((s, i) => (
                                 <li key={i} className="flex items-center justify-between border-b pb-3">
                                     <div>
                                         <p className="font-medium">{s.step}</p>
@@ -71,7 +72,7 @@ export default function TourDetailsPage() {
                     <CardContent className="p-6 h-80">
                         <h2 className="text-lg font-semibold mb-4">Analytics Tracking</h2>
                         <ResponsiveContainer width="100%" height="100%">
-                            <LineChart data={stepEvents}>
+                            <LineChart data={steps}>
                                 <XAxis dataKey="step" />
                                 <YAxis />
                                 <Tooltip />

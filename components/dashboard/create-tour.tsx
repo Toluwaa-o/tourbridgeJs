@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+    Select,
+    SelectTrigger,
+    SelectContent,
+    SelectItem,
+    SelectValue
+} from "@/components/ui/select";
 import { Step } from "./step";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
@@ -10,13 +17,14 @@ import { StepData } from "@/types/dashboard/tour";
 
 interface CreateTourModalProps {
     open: boolean;
-    onClose: () => void;
-    onSave: (data: { tour: { title: string; description: string }; steps: StepData[] }) => void;
+    close: () => void
+    onSave: (data: { tour: { id: number; title: string; description: string, views: number, status: string }; steps?: StepData[] }) => void;
 }
 
-export default function CreateTourModal({ open, onClose, onSave }: CreateTourModalProps) {
+export default function CreateTourModal({ open, close, onSave }: CreateTourModalProps) {
     const [tourTitle, setTourTitle] = useState("");
     const [tourDesc, setTourDesc] = useState("");
+    const [tourStatus, setTourStatus] = useState("");
 
     const [steps, setSteps] = useState([
         { "title": "", "description": "", "selector": "", "button_text": "", "bg_color": "", "text_color": "", "highlight_color": "" },
@@ -26,6 +34,19 @@ export default function CreateTourModal({ open, onClose, onSave }: CreateTourMod
         { "title": "", "description": "", "selector": "", "button_text": "", "bg_color": "", "text_color": "", "highlight_color": "" },
     ]);
 
+    const handleClose = () => {
+        setTourDesc('')
+        setTourStatus('')
+        setTourTitle('')
+        setSteps([
+            { "title": "", "description": "", "selector": "", "button_text": "", "bg_color": "", "text_color": "", "highlight_color": "" },
+            { "title": "", "description": "", "selector": "", "button_text": "", "bg_color": "", "text_color": "", "highlight_color": "" },
+            { "title": "", "description": "", "selector": "", "button_text": "", "bg_color": "", "text_color": "", "highlight_color": "" },
+            { "title": "", "description": "", "selector": "", "button_text": "", "bg_color": "", "text_color": "", "highlight_color": "" },
+            { "title": "", "description": "", "selector": "", "button_text": "", "bg_color": "", "text_color": "", "highlight_color": "" },
+        ])
+        close()
+    }
     const addStep = () => {
         setSteps([
             ...steps,
@@ -44,16 +65,19 @@ export default function CreateTourModal({ open, onClose, onSave }: CreateTourMod
     const handleSave = () => {
         const payload = {
             tour: {
+                id: 4,
                 title: tourTitle,
                 description: tourDesc,
-            },
-            steps,
+                views: 0,
+                status: 'active'
+            }
         };
         onSave(payload);
+        handleClose()
     };
 
     return (
-        <Dialog open={open} onOpenChange={onClose}>
+        <Dialog open={open} onOpenChange={handleClose}>
             <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl">
                 <DialogHeader>
                     <DialogTitle className="text-2xl font-semibold">Create New Tour</DialogTitle>
@@ -72,6 +96,17 @@ export default function CreateTourModal({ open, onClose, onSave }: CreateTourMod
                         value={tourDesc}
                         onChange={(e) => setTourDesc(e.target.value)}
                     />
+
+                    <Select onValueChange={setTourStatus} value={tourStatus}>
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select Tour Status" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                            <SelectItem value="Active">Active</SelectItem>
+                            <SelectItem value="Paused">Paused</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
 
                 {/* Steps Section */}
@@ -98,7 +133,7 @@ export default function CreateTourModal({ open, onClose, onSave }: CreateTourMod
 
                 {/* Actions */}
                 <div className="flex justify-end mt-8 gap-3">
-                    <Button variant="outline" onClick={onClose} className="rounded-xl">
+                    <Button variant="outline" onClick={handleClose} className="rounded-xl">
                         Cancel
                     </Button>
                     <Button onClick={handleSave} className="rounded-xl bg-black text-white">

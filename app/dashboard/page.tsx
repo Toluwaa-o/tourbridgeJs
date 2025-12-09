@@ -1,37 +1,28 @@
-import React from "react";
+'use client'
+
+import React, { useState } from "react";
 import {
   Search,
   Bell,
   Plus,
 } from "lucide-react";
 import { TourCard } from "@/components/dashboard/tour-card";
+import { tours as dummy_tours } from "@/data/tours";
+import CreateTourModal from "@/components/dashboard/create-tour";
 
 export default function MinimalistDashboard() {
-  const tours = [
-    {
-      id: 'tour-1-1',
-      title: "Welcome Flow",
-      desc: "Initial introduction",
-      views: 2847,
-      status: "Live",
-    },
-    {
-      id: 'tour-1-2',
-      title: "Payment Setup",
-      desc: "Billing configuration",
-      views: 1523,
-      status: "Live",
-    },
-    {
-      id: 'tour-1-3',
-      title: "Team Collaboration",
-      desc: "Invite teammates",
-      views: 456,
-      status: "Paused",
-    },
-  ];
+  const [open, setOpen] = useState(false)
+  const [tours, setTours] = useState(dummy_tours)
 
-
+  const newTour = (data: { tour: { id: number; title: string; description: string, views: number, status: string } }) => {
+    setTours(prev => [...prev, {
+      id: data.tour.id,
+      title: data.tour.title,
+      desc: data.tour.description,
+      views: data.tour.views,
+      status: data.tour.status
+    }])
+  }
   return (
     <main className="flex-1 p-10">
       <header className="flex items-center justify-between mb-12">
@@ -62,6 +53,7 @@ export default function MinimalistDashboard() {
       <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {tours.map((tour) => (
           <TourCard
+            id={tour.id}
             key={tour.id}
             title={tour.title}
             desc={tour.desc}
@@ -70,11 +62,13 @@ export default function MinimalistDashboard() {
           />
         ))}
 
-        <button className="border-2 border-dashed border-gray-300 p-6 rounded-xl flex flex-col items-center justify-center hover:border-gray-400 transition text-gray-400 hover:text-gray-600">
+        <button className="border-2 border-dashed border-gray-300 p-6 rounded-xl flex flex-col items-center justify-center hover:border-gray-400 transition text-gray-400 hover:text-gray-600" onClick={() => setOpen(true)}>
           <Plus size={32} />
           <p className="mt-2 font-medium">Create New Tour</p>
         </button>
       </section>
+
+      <CreateTourModal close={() => setOpen(false)} open={open} onSave={newTour} />
     </main>
   );
 }
