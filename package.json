@@ -2,7 +2,7 @@
   "name": "TourBridgeJS",
   "version": "0.1.0",
   "private": true,
-    "scripts": {
+  "scripts": {
     "dev": "pnpm run dev:next & pnpm run dev:convex",
     "dev:next": "next dev",
     "dev:convex": "convex dev",

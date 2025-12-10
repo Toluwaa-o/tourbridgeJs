@@ -16,7 +16,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useAuthDialogs, useEmailAuth } from '@/hooks/use-auth';
+import { useAuth, useAuthDialogs, useEmailAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 
 const loginSchema = z.object({
@@ -31,6 +31,7 @@ export function LoginDialog() {
 
   const { isLoginOpen, closeDialog, switchToSignup } = useAuthDialogs();
   const { signInWithEmail, isLoaded } = useEmailAuth();
+  const { isSignedIn } = useAuth()
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +48,10 @@ export function LoginDialog() {
   const onSubmit = async (data: LoginForm) => {
     setIsLoading(true);
     setError(null);
+
+    if (isSignedIn) {
+      router.push('/dashboard')
+    }
 
     const result = await signInWithEmail(data.email, data.password);
 

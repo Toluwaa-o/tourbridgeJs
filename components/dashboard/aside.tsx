@@ -36,8 +36,8 @@ export const Aside = () => {
         <NavItem
           icon={Code}
           label="Integrations"
-          active={pathname.startsWith('/documentation')}
-          page_link="/documentation"
+          active={pathname.startsWith('/docs')}
+          page_link="/docs"
         />
       </nav>
 

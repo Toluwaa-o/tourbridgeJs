@@ -1,5 +1,6 @@
 import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
+import { requireAuth } from './checkPermissons';
 
 export const getAll = query({
   args: {},
@@ -8,18 +9,29 @@ export const getAll = query({
   },
 });
 
-export const create = mutation({
+export const createUser = mutation({
   args: {
     name: v.string(),
     email: v.string(),
   },
   handler: async (ctx, args) => {
-    const userId = await ctx.db.insert('users', {
-      name: args.name,
-      email: args.email,
-      createdAt: Date.now(),
-    });
-    return userId;
+    const identity = await requireAuth(ctx);
+
+    const clerkId = identity.subject;
+
+    const existing = await ctx.db
+      .query("users")
+      .withIndex("by_clerkId", q => q.eq("clerkId", clerkId))
+      .unique();
+
+    if (!existing) {
+      await ctx.db.insert("users", {
+        clerkId,
+        name: args.name,
+        email: args.email,
+        createdAt: Date.now(),
+      });
+    }
   },
 });
 
