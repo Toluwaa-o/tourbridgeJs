@@ -94,7 +94,7 @@ export function LoginDialog() {
               id="email"
               type="email"
               placeholder="name@example.com"
-              className="rounded-xl h-11"
+              className="rounded-xl h-11 text-black"
               {...register('email')}
             />
             {errors.email && (
@@ -110,7 +110,7 @@ export function LoginDialog() {
               id="password"
               type="password"
               placeholder="***********"
-              className="rounded-xl h-11"
+              className="rounded-xl h-11 text-black"
               {...register('password')}
             />
             {errors.password && (
