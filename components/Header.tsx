@@ -16,9 +16,6 @@ const Header = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-          <a href="#features" className="hover:text-white transition-colors">
-            Features
-          </a>
           <a
             href="#how-it-works"
             className="hover:text-white transition-colors"
@@ -36,13 +33,7 @@ const Header = () => {
         {/* Auth / CTA */}
         <div className="hidden md:flex items-center gap-4">
           <a
-            href="#"
-            className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
-          >
-            Sign in
-          </a>
-          <a
-            href="#"
+            href="/dashboard"
             className="group relative inline-flex h-8 items-center justify-center overflow-hidden rounded-md bg-white px-4 font-medium text-gray-950 transition-all duration-300 hover:bg-cyan-50 hover:text-cyan-900 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
           >
             <span className="mr-2 text-xs">Start free</span>
