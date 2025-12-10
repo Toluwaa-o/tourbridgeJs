@@ -37,7 +37,6 @@ export const createStep = mutation({
 
     return await ctx.db.insert('steps', {
       ...args,
-      createdAt: Date.now(),
     });
   },
 });
@@ -83,5 +82,27 @@ export const deleteStep = mutation({
     checkOwnership(ctx, tour.user_id);
 
     return await ctx.db.delete(args.id);
+  },
+});
+
+export const deleteStepsByTour = mutation({
+  args: { tourId: v.id("tours") },
+  handler: async (ctx, args) => {
+
+    const tour = await ctx.db.get(args.tourId);
+    if (!tour) throw new Error("Tour not found");
+
+    checkOwnership(ctx, tour.user_id);
+
+    const steps = await ctx.db
+      .query("steps")
+      .withIndex("by_tour", q => q.eq("tour_id", args.tourId))
+      .collect();
+
+    for (const step of steps) {
+      await ctx.db.delete(step._id);
+    }
+
+    return { success: true, deleted: steps.length };
   },
 });

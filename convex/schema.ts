@@ -37,6 +37,6 @@ export default defineSchema({
     skipped: v.number(),
     completed: v.number(),
 
-    createdAt: v.number(),
+    _creationTime: v.number(),
   }).index('by_tour', ['tour_id']),
 });
