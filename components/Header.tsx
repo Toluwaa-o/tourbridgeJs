@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useAuth, useAuthDialogs } from '@/hooks';
 import Link from 'next/link';
@@ -45,18 +45,42 @@ const Header = () => {
         </nav>
 
         {/* Auth / CTA */}
-        {!isSignedIn ? <div className="hidden md:flex items-center gap-4">
-          <div
-            onClick={openLogin}
-            className="text-sm cursor-default font-medium text-slate-400 hover:text-white transition-colors"
-          >
-            Sign in
+        {!isSignedIn ? (
+          <div className="hidden md:flex items-center gap-4">
+            <div
+              onClick={openLogin}
+              className="text-sm cursor-default font-medium text-slate-400 hover:text-white transition-colors"
+            >
+              Sign in
+            </div>
+            <div
+              onClick={openSignup}
+              className="group cursor-default relative inline-flex h-8 items-center justify-center overflow-hidden rounded-md bg-white px-4 font-medium text-gray-950 transition-all duration-300 hover:bg-cyan-50 hover:text-cyan-900 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+            >
+              <span className="mr-2 text-xs">Start free</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform group-hover:translate-x-0.5"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </div>
           </div>
-          <div
-            onClick={openSignup}
+        ) : (
+          <Link
+            href="/dashboard"
             className="group cursor-default relative inline-flex h-8 items-center justify-center overflow-hidden rounded-md bg-white px-4 font-medium text-gray-950 transition-all duration-300 hover:bg-cyan-50 hover:text-cyan-900 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
           >
-            <span className="mr-2 text-xs">Start free</span>
+            <span className="mr-2 text-xs">Dashboard</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
@@ -72,28 +96,8 @@ const Header = () => {
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>
-          </div>
-        </div> : <Link
-          href='/dashboard'
-          className="group cursor-default relative inline-flex h-8 items-center justify-center overflow-hidden rounded-md bg-white px-4 font-medium text-gray-950 transition-all duration-300 hover:bg-cyan-50 hover:text-cyan-900 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
-        >
-          <span className="mr-2 text-xs">Dashboard</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-transform group-hover:translate-x-0.5"
-          >
-            <path d="M5 12h14" />
-            <path d="m12 5 7 7-7 7" />
-          </svg>
-        </Link>}
+          </Link>
+        )}
 
         {/* Mobile Toggle Label */}
         <label

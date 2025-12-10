@@ -15,7 +15,13 @@ import { Button } from '@/components/ui/button';
 import { Plus, AlertCircle, ArrowLeft, Trash, Trash2 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { NewStep, StepData } from '@/types/dashboard/tour';
 import { api } from '@/convex/_generated/api';
 import { useMutation } from 'convex/react';
@@ -31,42 +37,53 @@ export default function CreateTourPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [steps, setSteps] = useState<NewStep[]>(
-    Array(5).fill(null).map(() => ({
-      title: '',
-      description: '',
-      selector: '',
-      button_text: '',
-      bg_color: '#ffffff',
-      text_color: '#000000',
-      highlight_color: '#3b82f6',
-      started: 0,
-      skipped: 0,
-      completed: 0,
-    }))
+    Array(5)
+      .fill(null)
+      .map(() => ({
+        title: '',
+        description: '',
+        selector: '',
+        button_text: '',
+        bg_color: '#ffffff',
+        text_color: '#000000',
+        highlight_color: '#3b82f6',
+        started: 0,
+        skipped: 0,
+        completed: 0,
+      }))
   );
 
   const createTour = useMutation(api.tours.createTour);
   const createStep = useMutation(api.steps.createStep);
 
   const addStep = () => {
-    setSteps(prev => [...prev, {
-      title: '', description: '', selector: '', button_text: '',
-      bg_color: '#ffffff', text_color: '#000000', highlight_color: '#3b82f6',
-      started: 0, skipped: 0, completed: 0,
-    }]);
+    setSteps((prev) => [
+      ...prev,
+      {
+        title: '',
+        description: '',
+        selector: '',
+        button_text: '',
+        bg_color: '#ffffff',
+        text_color: '#000000',
+        highlight_color: '#3b82f6',
+        started: 0,
+        skipped: 0,
+        completed: 0,
+      },
+    ]);
   };
 
   const removeStep = (index: number) => {
-    setSteps(prev => prev.filter((_, i) => i !== index));
+    setSteps((prev) => prev.filter((_, i) => i !== index));
   };
-
 
   const updateStepField = <K extends keyof StepData>(
     index: number,
     field: K,
     value: StepData[K]
   ) => {
-    setSteps(prev => {
+    setSteps((prev) => {
       const updated = [...prev];
       updated[index] = { ...updated[index], [field]: value };
       return updated;
@@ -98,7 +115,7 @@ export default function CreateTourPage() {
       });
 
       await Promise.all(
-        steps.map(step =>
+        steps.map((step) =>
           createStep({
             ...step,
             tour_id: tourId,
@@ -141,7 +158,9 @@ export default function CreateTourPage() {
                 <ArrowLeft className="h-5 w-5" />
               </Button>
               <div>
-                <h1 className="text-4xl font-bold text-white">Create New Tour</h1>
+                <h1 className="text-4xl font-bold text-white">
+                  Create New Tour
+                </h1>
                 <p className="text-lg text-gray-300 mt-2">
                   Build an interactive onboarding experience with guided steps
                 </p>
@@ -155,11 +174,15 @@ export default function CreateTourPage() {
           <Card className="lg:col-span-1 shadow-lg border-0">
             <CardHeader className="pb-6">
               <CardTitle className="text-2xl">Tour Information</CardTitle>
-              <CardDescription>Basic details about this onboarding tour</CardDescription>
+              <CardDescription>
+                Basic details about this onboarding tour
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="title" className="text-sm font-semibold">Tour Title</Label>
+                <Label htmlFor="title" className="text-sm font-semibold">
+                  Tour Title
+                </Label>
                 <Input
                   id="title"
                   placeholder="Enter tour title"
@@ -171,7 +194,9 @@ export default function CreateTourPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description" className="text-sm font-semibold">Description</Label>
+                <Label htmlFor="description" className="text-sm font-semibold">
+                  Description
+                </Label>
                 <Textarea
                   id="description"
                   placeholder="Describe what this tour covers..."
@@ -218,13 +243,19 @@ export default function CreateTourPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="text-2xl">Tour Steps</CardTitle>
-                    <CardDescription>Configure each step of the user journey</CardDescription>
+                    <CardDescription>
+                      Configure each step of the user journey
+                    </CardDescription>
                   </div>
                   <div className="flex items-center gap-3">
                     <Badge variant="secondary" className="text-sm">
                       {steps.length} {steps.length === 1 ? 'step' : 'steps'}
                     </Badge>
-                    <Button onClick={addStep} size="sm" className="gap-2 bg-cyan-600 hover:bg-cyan-700">
+                    <Button
+                      onClick={addStep}
+                      size="sm"
+                      className="gap-2 bg-cyan-600 hover:bg-cyan-700"
+                    >
                       <Plus className="w-4 h-4" />
                       Add Step
                     </Button>
@@ -234,20 +265,27 @@ export default function CreateTourPage() {
               <CardContent>
                 <div className="space-y-6 max-h-[720px] overflow-y-auto pr-2">
                   {steps.map((step, idx) => (
-                    <Card key={idx} className="border shadow-sm hover:shadow-md transition-shadow">
+                    <Card
+                      key={idx}
+                      className="border shadow-sm hover:shadow-md transition-shadow"
+                    >
                       <CardHeader className="pb-4 flex justify-between items-center">
                         <div className="flex items-center gap-3">
                           <div className="flex items-center justify-center w-10 h-10 rounded-full bg-cyan-100 text-cyan-700 font-bold text-lg">
                             {idx + 1}
                           </div>
-                          <CardTitle className="text-lg">Step {idx + 1}</CardTitle>
+                          <CardTitle className="text-lg">
+                            Step {idx + 1}
+                          </CardTitle>
                         </div>
 
-                        {idx > 4 && <Trash2
-                          color="red"
-                          className="cursor-pointer hover:opacity-70"
-                          onClick={() => removeStep(idx)}
-                        />}
+                        {idx > 4 && (
+                          <Trash2
+                            color="red"
+                            className="cursor-pointer hover:opacity-70"
+                            onClick={() => removeStep(idx)}
+                          />
+                        )}
                       </CardHeader>
                       <CardContent>
                         <Step

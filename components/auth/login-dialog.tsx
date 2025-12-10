@@ -31,7 +31,7 @@ export function LoginDialog() {
 
   const { isLoginOpen, closeDialog, switchToSignup } = useAuthDialogs();
   const { signInWithEmail, isLoaded } = useEmailAuth();
-  const { isSignedIn } = useAuth()
+  const { isSignedIn } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +50,7 @@ export function LoginDialog() {
     setError(null);
 
     if (isSignedIn) {
-      router.push('/dashboard')
+      router.push('/dashboard');
     }
 
     const result = await signInWithEmail(data.email, data.password);
@@ -87,7 +87,10 @@ export function LoginDialog() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 mt-6">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-gray-600">
+            <Label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-600"
+            >
               Email
             </Label>
             <Input
@@ -103,7 +106,10 @@ export function LoginDialog() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-sm font-medium text-gray-600">
+            <Label
+              htmlFor="password"
+              className="text-sm font-medium text-gray-600"
+            >
               Password
             </Label>
             <Input

@@ -7,57 +7,57 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Footer from '@/components/Footer';
 
 const DocsPage = () => {
-    const [activeSection, setActiveSection] = useState('quick-start');
-    const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState('quick-start');
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
-    const copyToClipboard = async (text: string, id: string) => {
-        try {
-            await navigator.clipboard.writeText(text);
-            setCopiedCode(id);
-            setTimeout(() => setCopiedCode(null), 2000);
-        } catch (err) {
-            console.error('Failed to copy text: ', err);
-        }
-    };
+  const copyToClipboard = async (text: string, id: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedCode(id);
+      setTimeout(() => setCopiedCode(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
 
-    const sections = [
-        { id: 'quick-start', title: 'Quick Start' },
-        { id: 'configuration', title: 'Configuration' },
-        { id: 'event-hooks', title: 'Event Hooks' },
-        { id: 'analytics', title: 'Analytics' },
-        { id: 'authentication', title: 'Authentication' },
-        { id: 'accessibility', title: 'Accessibility' },
-        { id: 'faq', title: 'FAQ' },
-    ];
+  const sections = [
+    { id: 'quick-start', title: 'Quick Start' },
+    { id: 'configuration', title: 'Configuration' },
+    { id: 'event-hooks', title: 'Event Hooks' },
+    { id: 'analytics', title: 'Analytics' },
+    { id: 'authentication', title: 'Authentication' },
+    { id: 'accessibility', title: 'Accessibility' },
+    { id: 'faq', title: 'FAQ' },
+  ];
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY + 100;
-            for (const section of sections) {
-                const element = document.getElementById(section.id);
-                if (element) {
-                    const { offsetTop, offsetHeight } = element;
-                    if (
-                        scrollPosition >= offsetTop &&
-                        scrollPosition < offsetTop + offsetHeight
-                    ) {
-                        setActiveSection(section.id);
-                        break;
-                    }
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    });
-
-    const scrollToSection = (sectionId: string) => {
-        const element = document.getElementById(sectionId);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 100;
+      for (const section of sections) {
+        const element = document.getElementById(section.id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section.id);
+            break;
+          }
         }
+      }
     };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
@@ -107,29 +107,29 @@ const DocsPage = () => {
               </a>
             </motion.div>
 
-                        {/* Animated Code Snippet */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.6 }}
-                            className="mt-16 max-w-2xl mx-auto"
-                        >
-                            <div className="rounded-xl overflow-hidden border border-white/10 bg-[#0d1117] shadow-2xl">
-                                <div className="flex items-center px-4 py-3 bg-white/5 border-b border-white/5 gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-red-500/20"></div>
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500/20"></div>
-                                    <div className="w-3 h-3 rounded-full bg-green-500/20"></div>
-                                    <span className="ml-auto text-xs text-slate-500 font-mono">
-                                        index.html
-                                    </span>
-                                </div>
-                                <div className="p-6">
-                                    <SyntaxHighlighter
-                                        language="html"
-                                        style={vscDarkPlus}
-                                        customStyle={{ margin: 0, background: 'transparent' }}
-                                    >
-                                        {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
+            {/* Animated Code Snippet */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-16 max-w-2xl mx-auto"
+            >
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-[#0d1117] shadow-2xl">
+                <div className="flex items-center px-4 py-3 bg-white/5 border-b border-white/5 gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/20"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/20"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500/20"></div>
+                  <span className="ml-auto text-xs text-slate-500 font-mono">
+                    index.html
+                  </span>
+                </div>
+                <div className="p-6">
+                  <SyntaxHighlighter
+                    language="html"
+                    style={vscDarkPlus}
+                    customStyle={{ margin: 0, background: 'transparent' }}
+                  >
+                    {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
 <script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
 
 <script>
@@ -137,12 +137,12 @@ document.getElementById("start").addEventListener("click", () => {
   window.InitTour({});
 });
 </script>`}
-                                    </SyntaxHighlighter>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </section>
+                  </SyntaxHighlighter>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
         {/* Main Content */}
         <div className="flex relative min-h-screen">
@@ -165,36 +165,36 @@ document.getElementById("start").addEventListener("click", () => {
             </nav>
           </aside>
 
-                    {/* Mobile Sidebar */}
-                    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-white/5 p-4 z-50">
-                        <select
-                            title='sections'
-                            value={activeSection}
-                            onChange={(e) => scrollToSection(e.target.value)}
-                            className="w-full bg-gray-900 border border-white/10 rounded-lg px-3 py-2 text-white"
-                        >
-                            {sections.map((section) => (
-                                <option key={section.id} value={section.id}>
-                                    {section.title}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+          {/* Mobile Sidebar */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-white/5 p-4 z-50">
+            <select
+              title="sections"
+              value={activeSection}
+              onChange={(e) => scrollToSection(e.target.value)}
+              className="w-full bg-gray-900 border border-white/10 rounded-lg px-3 py-2 text-white"
+            >
+              {sections.map((section) => (
+                <option key={section.id} value={section.id}>
+                  {section.title}
+                </option>
+              ))}
+            </select>
+          </div>
 
-                    {/* Content */}
-                    <div className="flex-1 px-6 lg:px-12 py-12 pb-24 lg:pb-12">
-                        {/* Quick Start */}
-                        <motion.section
-                            id="quick-start"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
-                            className="mb-16"
-                        >
-                            <h2 className="text-3xl font-semibold text-white mb-8">
-                                Quick Start
-                            </h2>
+          {/* Content */}
+          <div className="flex-1 px-6 lg:px-12 py-12 pb-24 lg:pb-12">
+            {/* Quick Start */}
+            <motion.section
+              id="quick-start"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="mb-16"
+            >
+              <h2 className="text-3xl font-semibold text-white mb-8">
+                Quick Start
+              </h2>
 
               <div className="space-y-8">
                 <div>
@@ -219,54 +219,55 @@ document.getElementById("start").addEventListener("click", () => {
                         >
                           {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
 <script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>`}
-                                                </SyntaxHighlighter>
-                                                <button
-                                                    onClick={() =>
-                                                        copyToClipboard(
-                                                            `<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
+                        </SyntaxHighlighter>
+                        <button
+                          onClick={() =>
+                            copyToClipboard(
+                              `<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
 <script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>`,
-                                                            'scripts'
-                                                        )
-                                                    }
-                                                    className="absolute top-2 right-2 p-2 rounded bg-gray-800 hover:bg-gray-700 transition-colors"
-                                                >
-                                                    {copiedCode === 'scripts' ? (
-                                                        <svg
-                                                            className="w-4 h-4 text-green-400"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth={2}
-                                                                d="M5 13l4 4L19 7"
-                                                            />
-                                                        </svg>
-                                                    ) : (
-                                                        <svg
-                                                            className="w-4 h-4 text-slate-400"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth={2}
-                                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                                                            />
-                                                        </svg>
-                                                    )}
-                                                </button>
-                                            </div>
-                                            <p className="text-slate-400 mt-2">
-                                                For the tourbridge.js, make sure you're passing your tourId from your dashboard
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                              'scripts'
+                            )
+                          }
+                          className="absolute top-2 right-2 p-2 rounded bg-gray-800 hover:bg-gray-700 transition-colors"
+                        >
+                          {copiedCode === 'scripts' ? (
+                            <svg
+                              className="w-4 h-4 text-green-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              className="w-4 h-4 text-slate-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                              />
+                            </svg>
+                          )}
+                        </button>
+                      </div>
+                      <p className="text-slate-400 mt-2">
+                        For the tourbridge.js, make sure you&apos;re passing
+                        your tourId from your dashboard
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
                 <div>
                   <h3 className="text-xl font-medium text-white mb-4">
@@ -598,54 +599,54 @@ document.getElementById("start").addEventListener("click", () => {
                 </div>
               </div>
             </motion.section>
-                        {/* Accessibility */}
-                        <motion.section
-                            id="accessibility"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
-                            className="mb-16"
-                        >
-                            <h2 className="text-3xl font-semibold text-white mb-8">
-                                Accessibility Notes
-                            </h2>
-                            <div className="space-y-4">
-                                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
-                                    <h3 className="text-lg font-medium text-white mb-2">
-                                        Keyboard Navigation
-                                    </h3>
-                                    <p className="text-slate-400">
-                                        Tab, Enter, Escape keys supported. Full keyboard
-                                        accessibility.
-                                    </p>
-                                </div>
-                                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
-                                    <h3 className="text-lg font-medium text-white mb-2">
-                                        ARIA Labels
-                                    </h3>
-                                    <p className="text-slate-400">
-                                        Proper ARIA roles and labels for screen readers.
-                                    </p>
-                                </div>
-                                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
-                                    <h3 className="text-lg font-medium text-white mb-2">
-                                        Reduced Motion
-                                    </h3>
-                                    <p className="text-slate-400">
-                                        Respects prefers-reduced-motion settings.
-                                    </p>
-                                </div>
-                                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
-                                    <h3 className="text-lg font-medium text-white mb-2">
-                                        Contrast
-                                    </h3>
-                                    <p className="text-slate-400">
-                                        WCAG AA compliant color contrast ratios.
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.section>
+            {/* Accessibility */}
+            <motion.section
+              id="accessibility"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="mb-16"
+            >
+              <h2 className="text-3xl font-semibold text-white mb-8">
+                Accessibility Notes
+              </h2>
+              <div className="space-y-4">
+                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                  <h3 className="text-lg font-medium text-white mb-2">
+                    Keyboard Navigation
+                  </h3>
+                  <p className="text-slate-400">
+                    Tab, Enter, Escape keys supported. Full keyboard
+                    accessibility.
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                  <h3 className="text-lg font-medium text-white mb-2">
+                    ARIA Labels
+                  </h3>
+                  <p className="text-slate-400">
+                    Proper ARIA roles and labels for screen readers.
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                  <h3 className="text-lg font-medium text-white mb-2">
+                    Reduced Motion
+                  </h3>
+                  <p className="text-slate-400">
+                    Respects prefers-reduced-motion settings.
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                  <h3 className="text-lg font-medium text-white mb-2">
+                    Contrast
+                  </h3>
+                  <p className="text-slate-400">
+                    WCAG AA compliant color contrast ratios.
+                  </p>
+                </div>
+              </div>
+            </motion.section>
 
             {/* FAQ */}
             <motion.section
@@ -767,9 +768,9 @@ document.getElementById("start").addEventListener("click", () => {
         </div>
       </main>
 
-            <Footer />
-        </>
-    );
+      <Footer />
+    </>
+  );
 };
 
 export default DocsPage;

@@ -154,7 +154,12 @@ const Page = () => {
   return (
     <>
       {/* Mobile Menu State */}
-      <input title='mobile-menu-toggle' type="checkbox" id="mobile-menu-toggle" className="hidden peer" />
+      <input
+        title="mobile-menu-toggle"
+        type="checkbox"
+        id="mobile-menu-toggle"
+        className="hidden peer"
+      />
 
       <Header />
 
