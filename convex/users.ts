@@ -20,12 +20,12 @@ export const createUser = mutation({
     const clerkId = identity.subject;
 
     const existing = await ctx.db
-      .query("users")
-      .withIndex("by_clerkId", q => q.eq("clerkId", clerkId))
+      .query('users')
+      .withIndex('by_clerkId', (q) => q.eq('clerkId', clerkId))
       .unique();
 
     if (!existing) {
-      await ctx.db.insert("users", {
+      await ctx.db.insert('users', {
         clerkId,
         name: args.name,
         email: args.email,

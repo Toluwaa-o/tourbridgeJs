@@ -6,6 +6,7 @@ import ConvexClientProvider from '@/components/providers/convex-provider';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Navbar } from '@/components/navbar';
 import { AuthDialogs } from '@/components/auth/auth-dialogs';
+import Header from '@/components/Header';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -119,7 +120,7 @@ export default function RootLayout({
           signUpFallbackRedirectUrl="/"
         >
           <ConvexClientProvider>
-            <Navbar />
+            <Header />
             <AuthDialogs />
             {children}
           </ConvexClientProvider>

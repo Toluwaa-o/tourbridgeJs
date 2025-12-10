@@ -8,9 +8,8 @@ export default defineSchema({
     email: v.string(),
     createdAt: v.number(),
   })
-    .index("by_email", ["email"])
-    .index("by_clerkId", ["clerkId"]),
-
+    .index('by_email', ['email'])
+    .index('by_clerkId', ['clerkId']),
 
   tours: defineTable({
     user_id: v.string(),

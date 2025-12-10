@@ -16,12 +16,19 @@ interface StepProps {
   disabled: boolean;
 }
 
-export const Step: React.FC<StepProps> = ({ idx, step, updateStep, disabled }) => {
+export const Step: React.FC<StepProps> = ({
+  idx,
+  step,
+  updateStep,
+  disabled,
+}) => {
   return (
     <div className="space-y-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div className="space-y-2">
-          <Label htmlFor={`title-${idx}`} className="font-medium">Step Title</Label>
+          <Label htmlFor={`title-${idx}`} className="font-medium">
+            Step Title
+          </Label>
           <Input
             id={`title-${idx}`}
             placeholder="e.g. Welcome to Dashboard"
@@ -32,7 +39,10 @@ export const Step: React.FC<StepProps> = ({ idx, step, updateStep, disabled }) =
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor={`selector-${idx}`} className="font-medium">CSS Selector <span className="text-gray-500 font-normal">(required)</span></Label>
+          <Label htmlFor={`selector-${idx}`} className="font-medium">
+            CSS Selector{' '}
+            <span className="text-gray-500 font-normal">(required)</span>
+          </Label>
           <Input
             id={`selector-${idx}`}
             placeholder="#submit-button or .navbar"
@@ -45,7 +55,9 @@ export const Step: React.FC<StepProps> = ({ idx, step, updateStep, disabled }) =
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor={`desc-${idx}`} className="font-medium">Description</Label>
+        <Label htmlFor={`desc-${idx}`} className="font-medium">
+          Description
+        </Label>
         <Textarea
           id={`desc-${idx}`}
           placeholder="Explain what the user should do or notice here..."
@@ -57,7 +69,10 @@ export const Step: React.FC<StepProps> = ({ idx, step, updateStep, disabled }) =
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor={`button-${idx}`} className="font-medium">Button Text <span className="text-gray-500 font-normal">(optional)</span></Label>
+        <Label htmlFor={`button-${idx}`} className="font-medium">
+          Button Text{' '}
+          <span className="text-gray-500 font-normal">(optional)</span>
+        </Label>
         <Input
           id={`button-${idx}`}
           placeholder="Next, Got it, Continue →"
@@ -108,7 +123,9 @@ export const Step: React.FC<StepProps> = ({ idx, step, updateStep, disabled }) =
               <Input
                 type="color"
                 value={step.highlight_color || '#3b82f6'}
-                onChange={(e) => updateStep(idx, 'highlight_color', e.target.value)}
+                onChange={(e) =>
+                  updateStep(idx, 'highlight_color', e.target.value)
+                }
                 className="h-12 w-full cursor-pointer"
                 disabled={disabled}
               />

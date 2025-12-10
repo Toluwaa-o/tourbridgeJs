@@ -7,14 +7,14 @@ import { useAuth } from '@/hooks';
 
 export const Aside = () => {
   const pathname = usePathname();
-  const router = useRouter()
+  const router = useRouter();
 
-  const { signOut } = useAuth()
+  const { signOut } = useAuth();
 
   const handleLogOut = () => {
-    signOut()
-    router.push('/')
-  }
+    signOut();
+    router.push('/');
+  };
 
   return (
     <aside className="w-64 border-r h-screen sticky top-0 left-0 bg-gray-950/80 border-gray-200 p-6 hidden md:flex flex-col">
@@ -48,7 +48,10 @@ export const Aside = () => {
         />
       </nav>
 
-      <div className="pt-6 mt-auto space-y-1 border-t border-gray-200 text-sm" onClick={() => handleLogOut()}>
+      <div
+        className="pt-6 mt-auto space-y-1 border-t border-gray-200 text-sm"
+        onClick={() => handleLogOut()}
+      >
         <NavItem icon={LogOut} label="Logout" page_link="/logout" />
       </div>
     </aside>

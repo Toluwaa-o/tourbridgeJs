@@ -35,13 +35,13 @@ const signupSchema = z
 type SignupForm = z.infer<typeof signupSchema>;
 
 export function SignupDialog() {
-  const router = useRouter()
+  const router = useRouter();
 
   const mutation = useMutation(api.users.createUser);
 
   const { isSignupOpen, closeDialog, switchToLogin } = useAuthDialogs();
   const { signUpWithEmail, isLoaded } = useEmailAuth();
-  const { isSignedIn, signOut } = useAuth()
+  const { isSignedIn, signOut } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,7 +59,7 @@ export function SignupDialog() {
     setError(null);
 
     if (isSignedIn) {
-      router.push('/dashboard')
+      router.push('/dashboard');
     }
 
     const result = await signUpWithEmail(data.email, data.password);
@@ -69,9 +69,9 @@ export function SignupDialog() {
     } else {
       mutation({
         name: data.email.split('@')[0],
-        email: data.email
-      })
-      router.push('/dashboard')
+        email: data.email,
+      });
+      router.push('/dashboard');
       reset();
     }
 
@@ -100,7 +100,10 @@ export function SignupDialog() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 mt-6">
           <div className="space-y-2">
-            <Label htmlFor="signup-email" className="text-sm font-medium text-gray-600">
+            <Label
+              htmlFor="signup-email"
+              className="text-sm font-medium text-gray-600"
+            >
               Email
             </Label>
             <Input
@@ -116,7 +119,10 @@ export function SignupDialog() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="signup-password" className="text-sm font-medium text-gray-600">
+            <Label
+              htmlFor="signup-password"
+              className="text-sm font-medium text-gray-600"
+            >
               Password
             </Label>
             <Input
@@ -134,7 +140,10 @@ export function SignupDialog() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirm-password" className="text-sm font-medium text-gray-600">
+            <Label
+              htmlFor="confirm-password"
+              className="text-sm font-medium text-gray-600"
+            >
               Confirm Password
             </Label>
             <Input
