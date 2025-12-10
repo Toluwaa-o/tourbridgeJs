@@ -107,7 +107,7 @@ export function SignupDialog() {
               id="signup-email"
               type="email"
               placeholder="name@example.com"
-              className="rounded-xl h-11"
+              className="rounded-xl h-11 text-black"
               {...register('email')}
             />
             {errors.email && (
@@ -123,7 +123,7 @@ export function SignupDialog() {
               id="signup-password"
               type="password"
               placeholder="***********"
-              className="rounded-xl h-11"
+              className="rounded-xl h-11 text-black"
               {...register('password')}
             />
             {errors.password && (
@@ -141,7 +141,7 @@ export function SignupDialog() {
               id="confirm-password"
               type="password"
               placeholder="***********"
-              className="rounded-xl h-11"
+              className="rounded-xl h-11 text-black"
               {...register('confirmPassword')}
             />
             {errors.confirmPassword && (
