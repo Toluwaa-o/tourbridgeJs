@@ -10,11 +10,14 @@ const Pricing = () => {
           Start free. Give user a nice onboarding experience.
         </h2>
         <p className="text-slate-400 mb-8 max-w-xl mx-auto">
-          Sign up today and explore all the features TourBridge has to offer with our
-          free plan. No credit card required.
+          Sign up today and explore all the features TourBridge has to offer
+          with our free plan. No credit card required.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link href='/dashboard' className="px-8 py-3 rounded-lg bg-white text-gray-950 font-semibold text-sm hover:bg-gray-200 transition-colors">
+          <Link
+            href="/dashboard"
+            className="px-8 py-3 rounded-lg bg-white text-gray-950 font-semibold text-sm hover:bg-gray-200 transition-colors"
+          >
             Sign up free
           </Link>
           <Link
@@ -24,7 +27,6 @@ const Pricing = () => {
             Check Documentation
           </Link>
         </div>
-        
       </div>
     </section>
   );

@@ -69,7 +69,7 @@ const DocsPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-4xl md:text-6xl font-semibold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-slate-400 mb-6"
+              className="text-4xl md:text-6xl font-semibold tracking-tighter text-transparent bg-clip-text bg-linear-to-b from-white via-white to-slate-400 mb-6"
             >
               Documentation that respects your time
             </motion.h1>
@@ -145,9 +145,9 @@ document.getElementById("start").addEventListener("click", () => {
         </section>
 
         {/* Main Content */}
-        <div className="flex">
+        <div className="flex relative min-h-screen">
           {/* Sidebar */}
-          <aside className="hidden lg:block w-64 sticky top-0 h-screen overflow-y-auto bg-gray-950 border-r border-white/5 p-6">
+          <aside className="hidden lg:block w-64 skicky top-16 h-screen overflow-y-auto bg-gray-950 border-r border-white/5 p-6">
             <nav className="space-y-2">
               {sections.map((section) => (
                 <button
@@ -278,36 +278,20 @@ document.getElementById("start").addEventListener("click", () => {
                       style={vscDarkPlus}
                       customStyle={{ margin: 0 }}
                     >
-                      {`import { initTour } from "@tour/sdk";
-
-initTour({
-  tourId: "demo-123",
-  steps: [
-    { id: "welcome", target: "#hero-cta", content: "Start here", placement: "bottom" },
-    { id: "features", target: "#features-grid", content: "Explore features", placement: "right" },
-    { id: "docs", target: "#docs-link", content: "Read the docs", placement: "top" },
-    { id: "dashboard", target: "#dashboard-link", content: "Manage tours", placement: "left" },
-    { id: "finish", target: "#final-cta", content: "You're set!", placement: "bottom" }
-  ],
-  analytics: true,
-});`}
+                      {`<script>
+document.getElementById("start").addEventListener("click", () => {
+  window.InitTour({});
+});
+</script>`}
                     </SyntaxHighlighter>
                     <button
                       onClick={() =>
                         copyToClipboard(
-                          `import { initTour } from "@tour/sdk";
-
-initTour({
-  tourId: "demo-123",
-  steps: [
-    { id: "welcome", target: "#hero-cta", content: "Start here", placement: "bottom" },
-    { id: "features", target: "#features-grid", content: "Explore features", placement: "right" },
-    { id: "docs", target: "#docs-link", content: "Read the docs", placement: "top" },
-    { id: "dashboard", target: "#dashboard-link", content: "Manage tours", placement: "left" },
-    { id: "finish", target: "#final-cta", content: "You're set!", placement: "bottom" }
-  ],
-  analytics: true,
-});`,
+                          `<script>
+document.getElementById("start").addEventListener("click", () => {
+  window.InitTour({});
+});
+</script>`,
                           'init'
                         )
                       }
@@ -566,233 +550,6 @@ initTour({
               </div>
             </motion.section>
 
-            {/* Configuration */}
-            <motion.section
-              id="configuration"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="mb-16"
-            >
-              <h2 className="text-3xl font-semibold text-white mb-8">
-                Configuration Options
-              </h2>
-              <div className="space-y-6">
-                <div className="p-6 rounded-lg bg-white/[0.02] border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    tourId
-                  </h3>
-                  <p className="text-slate-400 mb-2">
-                    Unique identifier for each tour. Used for analytics and
-                    state persistence.
-                  </p>
-                  <code className="text-cyan-400 bg-gray-900 px-2 py-1 rounded">
-                    tourId: &quot onboarding-v1 &quot
-                  </code>
-                </div>
-                <div className="p-6 rounded-lg bg-white/[0.02] border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">steps</h3>
-                  <p className="text-slate-400 mb-2">
-                    Array of step objects defining the tour flow.
-                  </p>
-                  <div className="relative">
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={vscDarkPlus}
-                      customStyle={{ margin: 0 }}
-                    >
-                      {`steps: [
-  {
-    id: "step-1",
-    target: "#element-id",
-    content: "Step description",
-    placement: "bottom"
-  }
-]`}
-                    </SyntaxHighlighter>
-                  </div>
-                </div>
-                <div className="p-6 rounded-lg bg-white/[0.02] border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    analytics
-                  </h3>
-                  <p className="text-slate-400 mb-2">
-                    Enable/disable automatic event tracking.
-                  </p>
-                  <code className="text-cyan-400 bg-gray-900 px-2 py-1 rounded">
-                    analytics: true
-                  </code>
-                </div>
-              </div>
-            </motion.section>
-
-            {/* Event Hooks */}
-            <motion.section
-              id="event-hooks"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="mb-16"
-            >
-              <h2 className="text-3xl font-semibold text-white mb-8">
-                Event Hooks
-              </h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="p-6 rounded-lg bg-white/[0.02] border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    onStepStart
-                  </h3>
-                  <p className="text-slate-400 mb-4">
-                    Fires when a step begins.
-                  </p>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={vscDarkPlus}
-                    customStyle={{ margin: 0 }}
-                  >
-                    {`onStepStart: (stepId) => {
-  console.log('Started:', stepId);
-}`}
-                  </SyntaxHighlighter>
-                </div>
-                <div className="p-6 rounded-lg bg-white/[0.02] border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    onStepComplete
-                  </h3>
-                  <p className="text-slate-400 mb-4">
-                    Fires when a step finishes.
-                  </p>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={vscDarkPlus}
-                    customStyle={{ margin: 0 }}
-                  >
-                    {`onStepComplete: (stepId) => {
-  trackEvent('step_complete', stepId);
-}`}
-                  </SyntaxHighlighter>
-                </div>
-                <div className="p-6 rounded-lg bg-white/[0.02] border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    onSkip
-                  </h3>
-                  <p className="text-slate-400 mb-4">
-                    Fires when user skips tour.
-                  </p>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={vscDarkPlus}
-                    customStyle={{ margin: 0 }}
-                  >
-                    {`onSkip: () => {
-  trackEvent('tour_skipped');
-}`}
-                  </SyntaxHighlighter>
-                </div>
-                <div className="p-6 rounded-lg bg-white/[0.02] border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    onFinish
-                  </h3>
-                  <p className="text-slate-400 mb-4">
-                    Fires when tour completes.
-                  </p>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={vscDarkPlus}
-                    customStyle={{ margin: 0 }}
-                  >
-                    {`onFinish: () => {
-  trackEvent('tour_completed');
-}`}
-                  </SyntaxHighlighter>
-                </div>
-              </div>
-            </motion.section>
-
-            {/* Analytics */}
-            <motion.section
-              id="analytics"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="mb-16"
-            >
-              <h2 className="text-3xl font-semibold text-white mb-8">
-                Analytics Integration
-              </h2>
-              <p className="text-slate-400 mb-6">
-                Automatic tracking of step starts, completions, skips, and
-                finishes. Integrate with your analytics provider.
-              </p>
-              <div className="relative">
-                <SyntaxHighlighter
-                  language="typescript"
-                  style={vscDarkPlus}
-                  customStyle={{ margin: 0 }}
-                >
-                  {`initTour({
-  tourId: "onboarding-v1",
-  analytics: true,
-  onStepComplete: (id) => {
-    // Send to Firebase
-    analytics.logEvent('step_complete', { stepId: id });
-
-    // Or Supabase
-    supabase.from('tour_events').insert({
-      event: 'step_complete',
-      step_id: id,
-      tour_id: 'onboarding-v1'
-    });
-  }
-});`}
-                </SyntaxHighlighter>
-              </div>
-            </motion.section>
-
-            {/* Authentication */}
-            <motion.section
-              id="authentication"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="mb-16"
-            >
-              <h2 className="text-3xl font-semibold text-white mb-8">
-                Authentication Setup
-              </h2>
-              <p className="text-slate-400 mb-6">
-                Secure your tours with user authentication. Supported providers:
-                Firebase, Supabase, Convex, Clerk.
-              </p>
-              <div className="relative">
-                <SyntaxHighlighter
-                  language="typescript"
-                  style={vscDarkPlus}
-                  customStyle={{ margin: 0 }}
-                >
-                  {`// Firebase Auth
-import { getAuth } from 'firebase/auth';
-
-const auth = getAuth();
-if (auth.currentUser) {
-  initTour({ tourId: "authenticated-tour" });
-}
-
-// Supabase Auth
-import { supabase } from './supabaseClient';
-
-const { data: { user } } = await supabase.auth.getUser();
-if (user) {
-  initTour({ tourId: "user-tour" });
-}`}
-                </SyntaxHighlighter>
-              </div>
-            </motion.section>
-
             {/* Accessibility */}
             <motion.section
               id="accessibility"
@@ -806,7 +563,7 @@ if (user) {
                 Accessibility Notes
               </h2>
               <div className="space-y-4">
-                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                <div className="p-4 rounded-lg bg-white/2 border border-white/5">
                   <h3 className="text-lg font-medium text-white mb-2">
                     Keyboard Navigation
                   </h3>
@@ -815,7 +572,7 @@ if (user) {
                     accessibility.
                   </p>
                 </div>
-                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                <div className="p-4 rounded-lg bg-white/2 border border-white/5">
                   <h3 className="text-lg font-medium text-white mb-2">
                     ARIA Labels
                   </h3>
@@ -823,7 +580,7 @@ if (user) {
                     Proper ARIA roles and labels for screen readers.
                   </p>
                 </div>
-                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                <div className="p-4 rounded-lg bg-white/2 border border-white/5">
                   <h3 className="text-lg font-medium text-white mb-2">
                     Reduced Motion
                   </h3>
@@ -831,7 +588,7 @@ if (user) {
                     Respects prefers-reduced-motion settings.
                   </p>
                 </div>
-                <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
+                <div className="p-4 rounded-lg bg-white/2 border border-white/5">
                   <h3 className="text-lg font-medium text-white mb-2">
                     Contrast
                   </h3>
@@ -855,9 +612,9 @@ if (user) {
                 Frequently Asked Questions
               </h2>
               <div className="space-y-4">
-                <details className="group bg-white/[0.02] border border-white/5 rounded-lg open:bg-white/[0.04] transition-colors">
+                <details className="group bg-white/2 border border-white/5 rounded-lg open:bg-white/4 transition-colors">
                   <summary className="flex items-center justify-between cursor-pointer p-5 font-medium text-slate-300 hover:text-white">
-                    <span>How do I add more than 5 steps?</span>
+                    <span>How well does it works with HTML page?</span>
                     <span className="transition group-open:rotate-180">
                       <svg
                         className="w-5 h-5"
@@ -875,13 +632,14 @@ if (user) {
                     </span>
                   </summary>
                   <div className="text-sm text-slate-400 p-5 pt-0 leading-relaxed">
-                    Simply add more objects to the steps array. There&apos;s no
-                    hard limit on the number of steps.
+                    The widget works perfectly on any standard HTML page. Just
+                    add the script tag, include the required selectors, and
+                    you&apos;re ready to go—no extra setup needed.
                   </div>
                 </details>
-                <details className="group bg-white/[0.02] border border-white/5 rounded-lg open:bg-white/[0.04] transition-colors">
+                <details className="group bg-white/2 border border-white/5 rounded-lg open:bg-white/4 transition-colors">
                   <summary className="flex items-center justify-between cursor-pointer p-5 font-medium text-slate-300 hover:text-white">
-                    <span>Can I customize styles?</span>
+                    <span>How does the styling work?</span>
                     <span className="transition group-open:rotate-180">
                       <svg
                         className="w-5 h-5"
@@ -899,13 +657,14 @@ if (user) {
                     </span>
                   </summary>
                   <div className="text-sm text-slate-400 p-5 pt-0 leading-relaxed">
-                    Yes! Override CSS variables or pass custom styles in the
-                    configuration object.
+                    The widget inherits a base font and color automatically. You
+                    can override colors via the dashoard and also customize your
+                    button color and text color.
                   </div>
                 </details>
-                <details className="group bg-white/[0.02] border border-white/5 rounded-lg open:bg-white/[0.04] transition-colors">
+                <details className="group bg-white/2 border border-white/5 rounded-lg open:bg-white/4 transition-colors">
                   <summary className="flex items-center justify-between cursor-pointer p-5 font-medium text-slate-300 hover:text-white">
-                    <span>Does it work with SSR?</span>
+                    <span>Is it accessible?</span>
                     <span className="transition group-open:rotate-180">
                       <svg
                         className="w-5 h-5"
@@ -923,13 +682,15 @@ if (user) {
                     </span>
                   </summary>
                   <div className="text-sm text-slate-400 p-5 pt-0 leading-relaxed">
-                    Absolutely! The widget loads client-side and is compatible
-                    with Next.js, Nuxt, and other SSR frameworks.
+                    We take accessibility seriously. The tour handles focus
+                    trapping, ARIA labeling, keyboard navigation (Escape to
+                    close, arrows to navigate), and respects reduced-motion
+                    preferences.
                   </div>
                 </details>
-                <details className="group bg-white/[0.02] border border-white/5 rounded-lg open:bg-white/[0.04] transition-colors">
+                <details className="group bg-white/2 border border-white/5 rounded-lg open:bg-white/4 transition-colors">
                   <summary className="flex items-center justify-between cursor-pointer p-5 font-medium text-slate-300 hover:text-white">
-                    <span>Is analytics GDPR-compliant?</span>
+                    <span>Can I use this widget in React?</span>
                     <span className="transition group-open:rotate-180">
                       <svg
                         className="w-5 h-5"
@@ -947,8 +708,9 @@ if (user) {
                     </span>
                   </summary>
                   <div className="text-sm text-slate-400 p-5 pt-0 leading-relaxed">
-                    Yes, analytics are anonymized by default. You control data
-                    collection and can disable it entirely.
+                    Not at the moment. The widget is currently optimized only
+                    for plain HTML pages. Support for React and other frameworks
+                    may be added in future updates.
                   </div>
                 </details>
               </div>

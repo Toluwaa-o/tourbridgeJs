@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export const Hero = () => {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6">
@@ -22,11 +24,11 @@ export const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-          <a
-            href="#demo"
+          <Link
+            href="/docs"
             className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-cyan-500 text-gray-950 font-semibold text-sm hover:bg-cyan-400 transition-all shadow-[0_0_20px_-5px_rgba(34,211,238,0.4)] flex items-center justify-center gap-2"
           >
-            Try the demo
+            Check Docs
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -40,7 +42,7 @@ export const Hero = () => {
             >
               <path d="m9 18 6-6-6-6" />
             </svg>
-          </a>
+          </Link>
           <div className="w-full sm:w-auto relative group">
             <div className="absolute -inset-0.5 bg-linear-to-r from-cyan-500 to-blue-600 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-200"></div>
           </div>
