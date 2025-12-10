@@ -37,7 +37,6 @@ export const createStep = mutation({
 
     return await ctx.db.insert('steps', {
       ...args,
-      createdAt: Date.now(),
     });
   },
 });
