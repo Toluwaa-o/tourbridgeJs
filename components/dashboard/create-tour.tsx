@@ -23,6 +23,7 @@ import { StepData } from '@/types/dashboard/tour';
 
 import { api } from '@/convex/_generated/api';
 import { useMutation } from 'convex/react';
+import { useRouter } from 'next/navigation';
 
 interface CreateTourModalProps {
   open: boolean;
@@ -30,6 +31,8 @@ interface CreateTourModalProps {
 }
 
 export default function CreateTourModal({ open, close }: CreateTourModalProps) {
+  const router = useRouter()
+
   const [tourTitle, setTourTitle] = useState('');
   const [tourDesc, setTourDesc] = useState('');
   const [tourStatus, setTourStatus] = useState('');
@@ -207,8 +210,9 @@ export default function CreateTourModal({ open, close }: CreateTourModalProps) {
           })
         )
       );
-
       console.log('Tour and steps created successfully!');
+      return tourId
+
     } catch (err) {
       console.error('Error creating tour and steps:', err);
     }
@@ -227,8 +231,14 @@ export default function CreateTourModal({ open, close }: CreateTourModalProps) {
       return;
     }
 
-    await handleTourCreation(payload);
-    handleClose();
+    try {
+      const tourId = await handleTourCreation(payload);
+      if (tourId) {
+        router.push(`/dashboard/tours/${tourId}`)
+      }
+    } catch {
+      console.log('error')
+    }
   };
 
   useEffect(() => {

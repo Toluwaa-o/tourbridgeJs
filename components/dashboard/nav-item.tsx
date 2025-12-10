@@ -12,16 +12,25 @@ export const NavItem = ({
   page_link: string;
 }) => {
   return (
-    <Link
-      className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition ${
-        active
+    <>
+      {label === 'Logout' ? <button
+        className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition ${active
           ? 'bg-gray-100 text-gray-900 font-medium'
           : 'text-gray-600 hover:bg-gray-100'
-      }`}
-      href={page_link}
-    >
-      <Icon width={18} height={18} />
-      {label}
-    </Link>
+          }`}
+      >
+        <Icon width={18} height={18} />
+        {label}
+      </button> : <Link
+        className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition ${active
+          ? 'bg-gray-100 text-gray-900 font-medium'
+          : 'text-gray-600 hover:bg-gray-100'
+          }`}
+        href={page_link}
+      >
+        <Icon width={18} height={18} />
+        {label}
+      </Link>}
+    </>
   );
 };

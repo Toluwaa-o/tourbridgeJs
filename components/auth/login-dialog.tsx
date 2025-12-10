@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuthDialogs, useEmailAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email'),
@@ -26,6 +27,8 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export function LoginDialog() {
+  const router = useRouter()
+
   const { isLoginOpen, closeDialog, switchToSignup } = useAuthDialogs();
   const { signInWithEmail, isLoaded } = useEmailAuth();
 
@@ -50,6 +53,7 @@ export function LoginDialog() {
     if (result.error) {
       setError(result.error);
     } else {
+      router.push('/dashboard')
       reset();
     }
 

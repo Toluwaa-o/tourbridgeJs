@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuthDialogs, useEmailAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
 
 const signupSchema = z
   .object({
@@ -32,6 +33,8 @@ const signupSchema = z
 type SignupForm = z.infer<typeof signupSchema>;
 
 export function SignupDialog() {
+  const router = useRouter()
+
   const { isSignupOpen, closeDialog, switchToLogin } = useAuthDialogs();
   const { signUpWithEmail, isLoaded } = useEmailAuth();
 
@@ -56,6 +59,7 @@ export function SignupDialog() {
     if (result.error) {
       setError(result.error);
     } else {
+      router.push('/dashboard')
       reset();
     }
 

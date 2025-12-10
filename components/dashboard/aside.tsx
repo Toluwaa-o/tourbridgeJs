@@ -1,11 +1,20 @@
 'use client';
 
 import { Home, Layers, Code, LogOut } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { NavItem } from './nav-item';
+import { useAuth } from '@/hooks';
 
 export const Aside = () => {
   const pathname = usePathname();
+  const router = useRouter()
+
+  const { signOut } = useAuth()
+
+  const handleLogOut = () => {
+    signOut()
+    router.push('/')
+  }
 
   return (
     <aside className="w-64 border-r h-screen sticky top-0 left-0 border-gray-200 p-6 hidden md:flex flex-col">
@@ -32,7 +41,7 @@ export const Aside = () => {
         />
       </nav>
 
-      <div className="pt-6 mt-auto space-y-1 border-t border-gray-200 text-sm">
+      <div className="pt-6 mt-auto space-y-1 border-t border-gray-200 text-sm" onClick={() => handleLogOut()}>
         <NavItem icon={LogOut} label="Logout" page_link="/logout" />
       </div>
     </aside>
