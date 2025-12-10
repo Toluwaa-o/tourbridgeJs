@@ -1,15 +1,13 @@
-import UpdateTourModal from '@/components/dashboard/update-tour'
+import UpdateTourModal from '@/components/dashboard/update-tour';
 
-const page = async (props: {
-    params: Promise<{ slug: string }>;
-}) => {
-    const { slug } = await props.params;
+const page = async (props: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await props.params;
 
-    return (
-        <div className='w-full'>
-            <UpdateTourModal slug={slug} />
-        </div>
-    )
-}
+  return (
+    <div className="w-full">
+      <UpdateTourModal slug={slug} />
+    </div>
+  );
+};
 
-export default page
+export default page;

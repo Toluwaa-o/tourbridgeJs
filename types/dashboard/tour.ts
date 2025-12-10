@@ -27,4 +27,7 @@ export interface StepData {
   completed: number;
 }
 
-export type NewStep = Omit<StepData, '_id' | '_creationTime' | 'createdAt' | 'tour_id'>;
+export type NewStep = Omit<
+  StepData,
+  '_id' | '_creationTime' | 'createdAt' | 'tour_id'
+>;

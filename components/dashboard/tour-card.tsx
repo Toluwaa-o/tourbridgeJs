@@ -21,10 +21,11 @@ export const TourCard = ({
 
       <div className="flex items-center justify-between text-sm mt-4">
         <span
-          className={`px-3 py-1 text-xs rounded-full capitalize font-medium ${status === 'active'
+          className={`px-3 py-1 text-xs rounded-full capitalize font-medium ${
+            status === 'active'
               ? 'bg-green-100 text-green-700'
               : 'bg-gray-200 text-gray-600'
-            }`}
+          }`}
         >
           {status}
         </span>

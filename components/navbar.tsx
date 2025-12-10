@@ -19,7 +19,7 @@ export function Navbar() {
   const { user, isSignedIn, isLoaded, signOut } = useAuth();
   const { openLogin, openSignup } = useAuthDialogs();
   const pathname = usePathname();
-  const router = useRouter()
+  const router = useRouter();
 
   const getInitials = (name: string | null | undefined) => {
     if (!name) return 'U';
@@ -36,9 +36,9 @@ export function Navbar() {
   }
 
   const handleLogOut = () => {
-    signOut()
-    router.push('/')
-  }
+    signOut();
+    router.push('/');
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/70 backdrop-blur supports-backdrop-filter:bg-background/60">
