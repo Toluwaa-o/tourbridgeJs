@@ -175,10 +175,10 @@ const Page = () => {
               Sign in
             </a>
             <a
-              href="#"
+              href="/dashboard"
               className="text-center py-3 rounded-lg bg-cyan-500 text-gray-950 font-semibold hover:bg-cyan-400"
             >
-              Start free
+              Get Started
             </a>
           </div>
         </nav>
@@ -905,9 +905,12 @@ const Page = () => {
               production. Transparent, no hidden fees.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="px-8 py-3 rounded-lg bg-white text-gray-950 font-semibold text-sm hover:bg-gray-200 transition-colors">
-                Sign up free
-              </button>
+              <a
+                href="/dashboard"
+                className="px-8 py-3 rounded-lg bg-white text-gray-950 font-semibold text-sm hover:bg-gray-200 transition-colors"
+              >
+                Get Started
+              </a>
               <button className="px-8 py-3 rounded-lg bg-transparent border border-white/10 text-white font-medium text-sm hover:bg-white/5 transition-colors">
                 Contact sales
               </button>
@@ -1010,10 +1013,10 @@ const Page = () => {
             </h2>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a
-                href="#"
+                href="/dashboard"
                 className="px-8 py-3.5 rounded-lg bg-cyan-500 text-gray-950 font-semibold text-sm hover:bg-cyan-400 transition-all shadow-[0_0_20px_-5px_rgba(34,211,238,0.4)]"
               >
-                Start free
+                Get Started
               </a>
               <a
                 href="#"
