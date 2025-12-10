@@ -1,20 +1,28 @@
+import { Id } from '@/convex/_generated/dataModel';
+
 export interface Tour {
-  id: number;
+  _id: Id<'tours'>;
+  _creationTime?: number;
+  createdAt?: number;
+  user_id: string;
   title: string;
-  desc: string;
+  description: string;
   status: string;
-  created?: string;
-  views: number;
-  completions?: number;
-  color?: string;
 }
 
 export interface StepData {
+  _id: Id<'steps'>;
+  _creationTime: number;
+  button_text?: string | undefined;
+  bg_color?: string | undefined;
+  text_color?: string | undefined;
+  highlight_color?: string | undefined;
+  createdAt: number;
   title: string;
   description: string;
+  tour_id: Id<'tours'>;
   selector: string;
-  button_text?: string;
-  bg_color?: string;
-  text_color?: string;
-  highlight_color?: string;
+  started: number;
+  skipped: number;
+  completed: number;
 }
