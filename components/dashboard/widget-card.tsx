@@ -10,8 +10,8 @@ interface WidgetScriptCardProps {
 export function WidgetScriptCard({ tourId }: WidgetScriptCardProps) {
   const [copied, setCopied] = useState(false);
 
-  const scriptSnippet = `<script src="https://venerable-churros-558104.netlify.app/tour-widget.js" data-tourId="${tourId}"></script>
-  <script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>`;
+  const scriptSnippet = `<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
+  <script src="https://venerable-churros-558104.netlify.app/tour-widget.js" data-tourId="${tourId}"></script>`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(scriptSnippet);
