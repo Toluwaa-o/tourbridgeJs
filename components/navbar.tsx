@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { LogOut, User } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -17,6 +18,7 @@ import { useAuth, useAuthDialogs } from '@/hooks/use-auth';
 export function Navbar() {
   const { user, isSignedIn, isLoaded, signOut } = useAuth();
   const { openLogin, openSignup } = useAuthDialogs();
+  const pathname = usePathname();
 
   const getInitials = (name: string | null | undefined) => {
     if (!name) return 'U';
@@ -28,22 +30,28 @@ export function Navbar() {
       .slice(0, 2);
   };
 
+  if (pathname !== '/') {
+    return <></>;
+  }
+
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/70 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold">OnboardJS</span>
+          <span className="text-xl font-semibold tracking-tight">
+            TourBridgeJS
+          </span>
         </Link>
 
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-3">
           {!isLoaded ? (
-            <div className="bg-muted h-9 w-20 animate-pulse rounded-md" />
+            <div className="h-9 w-24 animate-pulse rounded-md bg-muted" />
           ) : isSignedIn && user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="relative h-9 w-9 rounded-full"
+                  className="h-9 w-9 rounded-full p-0 hover:bg-accent"
                 >
                   <Avatar className="h-9 w-9">
                     <AvatarImage
@@ -56,9 +64,10 @@ export function Navbar() {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
+
               <DropdownMenuContent align="end" className="w-56">
-                <div className="flex items-center gap-2 p-2">
-                  <Avatar className="h-8 w-8">
+                <div className="flex items-center gap-3 p-3">
+                  <Avatar className="h-9 w-9">
                     <AvatarImage
                       src={user.imageUrl}
                       alt={user.fullName || 'User'}
@@ -69,22 +78,26 @@ export function Navbar() {
                   </Avatar>
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">{user.fullName}</span>
-                    <span className="text-muted-foreground text-xs">
+                    <span className="text-xs text-muted-foreground">
                       {user.primaryEmailAddress?.emailAddress}
                     </span>
                   </div>
                 </div>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem asChild>
                   <Link href="/profile" className="cursor-pointer">
                     <User className="mr-2 h-4 w-4" />
                     Profile
                   </Link>
                 </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem
                   onClick={() => signOut()}
-                  className="text-destructive focus:text-destructive cursor-pointer"
+                  className="cursor-pointer text-destructive focus:text-destructive"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
                   Sign out
@@ -92,11 +105,13 @@ export function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Button variant="ghost" onClick={openLogin}>
                 Sign In
               </Button>
-              <Button onClick={openSignup}>Get Started</Button>
+              <Button className="font-medium" onClick={openSignup}>
+                Get Started
+              </Button>
             </div>
           )}
         </nav>

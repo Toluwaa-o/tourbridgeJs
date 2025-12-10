@@ -95,7 +95,7 @@ const Footer = () => {
         </div>
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-slate-600">
-            © 2024 onboard.js. All rights reserved.
+            © 2024 TourBridgeJS. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a

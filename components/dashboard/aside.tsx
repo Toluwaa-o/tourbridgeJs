@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Layers, BarChart3, Code, Cog, LogOut } from 'lucide-react';
+import { Home, Layers, Code, LogOut } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { NavItem } from './nav-item';
 

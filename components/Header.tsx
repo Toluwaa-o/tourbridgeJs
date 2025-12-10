@@ -7,10 +7,10 @@ const Header = () => {
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group">
           <div className="w-6 h-6 rounded bg-linear-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white text-xs font-bold tracking-tighter shadow-[0_0_15px_rgba(34,211,238,0.5)]">
-            O
+            T
           </div>
           <span className="text-white font-semibold tracking-tight text-sm group-hover:text-cyan-400 transition-colors">
-            onboard.js
+            TourBridgeJS
           </span>
         </a>
 

@@ -2,6 +2,10 @@ import type { Metadata } from 'next';
 
 import { Geist, Geist_Mono, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import ConvexClientProvider from '@/components/providers/convex-provider';
+import { ClerkProvider } from '@clerk/nextjs';
+import { Navbar } from '@/components/navbar';
+import { AuthDialogs } from '@/components/auth/auth-dialogs';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -110,7 +114,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${jetbrainsMono.variable} bg-gray-950 text-slate-300 selection:bg-cyan-500/30 selection:text-cyan-200 antialiased`}
       >
-        {children}
+        <ClerkProvider
+          signInFallbackRedirectUrl="/"
+          signUpFallbackRedirectUrl="/"
+        >
+          <ConvexClientProvider>
+            <Navbar />
+            <AuthDialogs />
+            {children}
+          </ConvexClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

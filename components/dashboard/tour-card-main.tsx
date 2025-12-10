@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const TourCardMain = ({ t }: { t: Tour }) => {
   return (
-    <Link href={`/dashboard/tours/${t.id}`}>
+    <Link href={`/dashboard/tours/${t._id}`}>
       <Card className="rounded-2xl shadow-sm border hover:shadow-md transition cursor-pointer">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
@@ -21,10 +21,9 @@ export const TourCardMain = ({ t }: { t: Tour }) => {
             </span>
           </div>
 
-          <p className="text-gray-600 text-sm mb-6">{t.desc}</p>
+          <p className="text-gray-600 text-sm mb-6">{t.description}</p>
 
           <div className="flex items-center justify-between text-sm text-gray-500">
-            <span>{t.views.toLocaleString()} views</span>
             <button className="text-black font-medium hover:underline">
               Manage
             </button>
