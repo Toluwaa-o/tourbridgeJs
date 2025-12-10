@@ -13,6 +13,7 @@ import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
 import { WidgetScriptCard } from './widget-card';
+import Link from 'next/link';
 
 export const TourPage = ({ slug }: { slug: string }) => {
     const tour = useQuery(api.tours.getTourById, { id: slug as Id<'tours'> });
@@ -26,28 +27,28 @@ export const TourPage = ({ slug }: { slug: string }) => {
             <header className="flex items-center justify-between mb-10">
                 <div>
                     <h1 className="text-3xl font-semibold tracking-tight">
-                        Welcome Flow
+                        {tour?.title}
                     </h1>
                     <p className="text-gray-500 text-sm mt-1">
                         Detailed analytics & performance insights
                     </p>
                 </div>
-                <button className="px-4 py-2 rounded-xl bg-black text-white text-sm font-medium shadow hover:opacity-90 transition">
+                <Link href={`/dashboard/tours/${slug}/edit`} className="px-4 py-2 rounded-xl bg-black text-white text-sm font-medium shadow hover:opacity-90 transition">
                     Edit Tour
-                </button>
+                </Link>
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 <Card className="rounded-2xl shadow-sm border">
                     <CardContent className="p-6">
                         <h2 className="text-sm text-gray-500 mb-1">Total Views</h2>
-                        <p className="text-3xl font-semibold">2,847</p>
+                        <p className="text-3xl font-semibold">{steps?.length ? steps[0].started : 0}</p>
                     </CardContent>
                 </Card>
                 <Card className="rounded-2xl shadow-sm border">
                     <CardContent className="p-6">
                         <h2 className="text-sm text-gray-500 mb-1">Completion Rate</h2>
-                        <p className="text-3xl font-semibold">48%</p>
+                        <p className="text-3xl font-semibold">{steps?.length && steps[0].started ? (steps[0].started / steps[steps.length-1].completed) + '%' : 'Na'}</p>
                     </CardContent>
                 </Card>
                 <WidgetScriptCard tourId={slug} />

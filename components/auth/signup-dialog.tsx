@@ -16,8 +16,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useAuthDialogs, useEmailAuth } from '@/hooks/use-auth';
+import { useAuth, useAuthDialogs, useEmailAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
 const signupSchema = z
   .object({
@@ -35,8 +37,11 @@ type SignupForm = z.infer<typeof signupSchema>;
 export function SignupDialog() {
   const router = useRouter()
 
+  const mutation = useMutation(api.users.createUser);
+
   const { isSignupOpen, closeDialog, switchToLogin } = useAuthDialogs();
   const { signUpWithEmail, isLoaded } = useEmailAuth();
+  const { isSignedIn, signOut } = useAuth()
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,11 +59,19 @@ export function SignupDialog() {
     setIsLoading(true);
     setError(null);
 
+    if (isSignedIn) {
+      router.push('/dashboard')
+    }
+
     const result = await signUpWithEmail(data.email, data.password);
 
     if (result.error) {
       setError(result.error);
     } else {
+      mutation({
+        name: data.email.split('@')[0],
+        email: data.email
+      })
       router.push('/dashboard')
       reset();
     }

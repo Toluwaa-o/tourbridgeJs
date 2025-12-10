@@ -11,11 +11,10 @@ export const TourCardMain = ({ t }: { t: Tour }) => {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">{t.title}</h2>
             <span
-              className={`text-xs px-3 py-1 rounded-full capitalize font-medium ${
-                t.status === 'active'
+              className={`text-xs px-3 py-1 rounded-full capitalize font-medium ${t.status === 'active'
                   ? 'bg-green-100 text-green-700'
                   : 'bg-gray-200 text-gray-700'
-              }`}
+                }`}
             >
               {t.status}
             </span>
@@ -24,9 +23,9 @@ export const TourCardMain = ({ t }: { t: Tour }) => {
           <p className="text-gray-600 text-sm mb-6">{t.description}</p>
 
           <div className="flex items-center justify-between text-sm text-gray-500">
-            <button className="text-black font-medium hover:underline">
+            <Link href={`/dashboard/tours/${t._id}/edit`} className="text-black font-medium hover:underline">
               Manage
-            </button>
+            </Link>
           </div>
         </CardContent>
       </Card>
