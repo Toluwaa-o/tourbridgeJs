@@ -26,3 +26,18 @@ export interface StepData {
   skipped: number;
   completed: number;
 }
+
+export type StepBasic = {
+  _id: Id<'steps'>;
+  title: string;
+  description: string;
+  selector: string;
+  button_text?: string;
+  bg_color?: string;
+  text_color?: string;
+  highlight_color?: string;
+  tour_id: string;
+  started: number;
+  skipped: number;
+  completed: number;
+};
