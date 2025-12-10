@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { LogOut, User } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -19,6 +19,7 @@ export function Navbar() {
   const { user, isSignedIn, isLoaded, signOut } = useAuth();
   const { openLogin, openSignup } = useAuthDialogs();
   const pathname = usePathname();
+  const router = useRouter()
 
   const getInitials = (name: string | null | undefined) => {
     if (!name) return 'U';
@@ -32,6 +33,11 @@ export function Navbar() {
 
   if (pathname !== '/') {
     return <></>;
+  }
+
+  const handleLogOut = () => {
+    signOut()
+    router.push('/')
   }
 
   return (
@@ -96,7 +102,7 @@ export function Navbar() {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem
-                  onClick={() => signOut()}
+                  onClick={() => handleLogOut()}
                   className="cursor-pointer text-destructive focus:text-destructive"
                 >
                   <LogOut className="mr-2 h-4 w-4" />

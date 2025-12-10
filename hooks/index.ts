@@ -1,2 +1,2 @@
-export { useMobile, useIsMobile } from './use-mobile';
+export { useIsMobile } from './use-mobile';
 export { useAuth, useAuthDialogs, useEmailAuth } from './use-auth';
