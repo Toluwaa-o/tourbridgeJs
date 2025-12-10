@@ -6,8 +6,12 @@ import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
 const Header = () => {
+  const pathname = usePathname()
   const { user, isSignedIn, isLoaded, signOut } = useAuth();
   const { openLogin, openSignup } = useAuthDialogs();
+  if (pathname !== '/' && pathname !== '/docs') {
+    return
+  }
 
   return (
     <header className="fixed top-0 w-full z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur-md transition-all duration-300">
