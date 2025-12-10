@@ -2,8 +2,7 @@
 
 import { useAuth, useAuthDialogs } from '@/hooks';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React from 'react';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const pathname = usePathname()
