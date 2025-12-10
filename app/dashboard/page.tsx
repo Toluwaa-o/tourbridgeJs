@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function MinimalistDashboard() {
-  const router = useRouter()
+  const router = useRouter();
 
   const [open, setOpen] = useState(false);
 
@@ -41,9 +41,9 @@ export default function MinimalistDashboard() {
   };
 
   const handleLogOut = () => {
-    signOut()
-    router.push('/')
-  }
+    signOut();
+    router.push('/');
+  };
 
   return (
     <main className="flex-1 p-10">
@@ -54,10 +54,6 @@ export default function MinimalistDashboard() {
         </div>
 
         <div className="flex items-center gap-4">
-
-
-
-
           {!isLoaded ? (
             <div className="h-9 w-24 animate-pulse rounded-md bg-muted" />
           ) : isSignedIn && user ? (
@@ -118,7 +114,9 @@ export default function MinimalistDashboard() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : <></>}
+          ) : (
+            <></>
+          )}
         </div>
       </header>
 

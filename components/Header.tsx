@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Header = () => {
@@ -5,26 +6,32 @@ const Header = () => {
     <header className="fixed top-0 w-full z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur-md transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
+        <Link href="/" className="flex items-center gap-2 group">
           <div className="w-6 h-6 rounded bg-linear-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white text-xs font-bold tracking-tighter shadow-[0_0_15px_rgba(34,211,238,0.5)]">
             T
           </div>
           <span className="text-white font-semibold tracking-tight text-sm group-hover:text-cyan-400 transition-colors">
             TourBridgeJS
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-          <a
-            href="#how-it-works"
+          <Link
+            href="/#how-it-works"
             className="hover:text-white transition-colors"
           >
             How it works
-          </a>
-          <a href="/docs" className="hover:text-white transition-colors">
-            Docs
-          </a>
+          </Link>
+          <Link
+            href="/#features"
+            className="hover:text-white transition-colors"
+          >
+            Features
+          </Link>
+          <Link href="/docs" className="hover:text-white transition-colors">
+            Documentation
+          </Link>
           {/* <a href="#pricing" className="hover:text-white transition-colors">
             Pricing
           </a> */}

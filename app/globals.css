@@ -115,8 +115,14 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    transition: all 0.4s ease-in-out;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  button {
+    @apply cursor-pointer;
   }
 }

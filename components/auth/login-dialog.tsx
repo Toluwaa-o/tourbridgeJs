@@ -27,7 +27,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export function LoginDialog() {
-  const router = useRouter()
+  const router = useRouter();
 
   const { isLoginOpen, closeDialog, switchToSignup } = useAuthDialogs();
   const { signInWithEmail, isLoaded } = useEmailAuth();
@@ -53,7 +53,7 @@ export function LoginDialog() {
     if (result.error) {
       setError(result.error);
     } else {
-      router.push('/dashboard')
+      router.push('/dashboard');
       reset();
     }
 

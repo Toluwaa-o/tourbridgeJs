@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const DocsPage = () => {
@@ -62,8 +61,6 @@ const DocsPage = () => {
 
   return (
     <>
-      <Header />
-
       <main className="relative overflow-hidden">
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 px-6 bg-gray-950">
@@ -204,7 +201,9 @@ document.getElementById("start").addEventListener("click", () => {
                     Step 1 — Embed Scripts
                   </h3>
                   <p className="text-slate-400 mb-4">
-                    This is our own embedded stuff workings. You will need to include two script tags in your HTML, one for convex and the other for the tourbridge.js
+                    This is our own embedded stuff workings. You will need to
+                    include two script tags in your HTML, one for convex and the
+                    other for the tourbridge.js
                   </p>
                   <div className="space-y-4">
                     <div>
@@ -262,7 +261,8 @@ document.getElementById("start").addEventListener("click", () => {
                         </button>
                       </div>
                       <p className="text-slate-400 mt-2">
-                        For the tourbridge.js, make sure you're passing your tourId from your dashboard
+                        For the tourbridge.js, make sure you&abs;re passing your
+                        tourId from your dashboard
                       </p>
                     </div>
                   </div>
@@ -350,9 +350,7 @@ initTour({
                   <h3 className="text-xl font-medium text-white mb-4">
                     Step 3 — Demo
                   </h3>
-                  <p className="text-slate-400 mb-4">
-                    For demo:
-                  </p>
+                  <p className="text-slate-400 mb-4">For demo:</p>
                   <div className="relative">
                     <SyntaxHighlighter
                       language="html"

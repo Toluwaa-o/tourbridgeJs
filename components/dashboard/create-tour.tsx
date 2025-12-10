@@ -31,7 +31,7 @@ interface CreateTourModalProps {
 }
 
 export default function CreateTourModal({ open, close }: CreateTourModalProps) {
-  const router = useRouter()
+  const router = useRouter();
 
   const [tourTitle, setTourTitle] = useState('');
   const [tourDesc, setTourDesc] = useState('');
@@ -211,8 +211,7 @@ export default function CreateTourModal({ open, close }: CreateTourModalProps) {
         )
       );
       console.log('Tour and steps created successfully!');
-      return tourId
-
+      return tourId;
     } catch (err) {
       console.error('Error creating tour and steps:', err);
     }
@@ -234,10 +233,10 @@ export default function CreateTourModal({ open, close }: CreateTourModalProps) {
     try {
       const tourId = await handleTourCreation(payload);
       if (tourId) {
-        router.push(`/dashboard/tours/${tourId}`)
+        router.push(`/dashboard/tours/${tourId}`);
       }
     } catch {
-      console.log('error')
+      console.log('error');
     }
   };
 

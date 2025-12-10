@@ -33,7 +33,7 @@ const signupSchema = z
 type SignupForm = z.infer<typeof signupSchema>;
 
 export function SignupDialog() {
-  const router = useRouter()
+  const router = useRouter();
 
   const { isSignupOpen, closeDialog, switchToLogin } = useAuthDialogs();
   const { signUpWithEmail, isLoaded } = useEmailAuth();
@@ -58,7 +58,7 @@ export function SignupDialog() {
     if (result.error) {
       setError(result.error);
     } else {
-      router.push('/dashboard')
+      router.push('/dashboard');
       reset();
     }
 
