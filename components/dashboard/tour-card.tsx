@@ -4,13 +4,11 @@ export const TourCard = ({
   id,
   title,
   desc,
-  views,
   status,
 }: {
-  id: number;
+  id: string;
   title: string;
   desc: string;
-  views: number;
   status: string;
 }) => {
   return (
@@ -22,7 +20,6 @@ export const TourCard = ({
       <p className="text-gray-500 mb-4 text-sm">{desc}</p>
 
       <div className="flex items-center justify-between text-sm mt-4">
-        <span className="font-medium text-gray-600">Views: {views}</span>
         <span
           className={`px-3 py-1 text-xs rounded-full capitalize font-medium ${
             status === 'active'
