@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -19,29 +21,19 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { StepData } from '@/types/dashboard/tour';
 
+import { api } from '@/convex/_generated/api';
+import { useMutation } from 'convex/react';
+
 interface CreateTourModalProps {
   open: boolean;
   close: () => void;
-  onSave: (data: {
-    tour: {
-      id: number;
-      title: string;
-      description: string;
-      views: number;
-      status: string;
-    };
-    steps?: StepData[];
-  }) => void;
 }
 
-export default function CreateTourModal({
-  open,
-  close,
-  onSave,
-}: CreateTourModalProps) {
+export default function CreateTourModal({ open, close }: CreateTourModalProps) {
   const [tourTitle, setTourTitle] = useState('');
   const [tourDesc, setTourDesc] = useState('');
   const [tourStatus, setTourStatus] = useState('');
+  const [error, setError] = useState('');
 
   const [steps, setSteps] = useState([
     {
@@ -171,19 +163,79 @@ export default function CreateTourModal({
     });
   };
 
-  const handleSave = () => {
+  const createTour = useMutation(api.tours.createTour);
+  const createStep = useMutation(api.steps.createStep);
+
+  const handleTourCreation = async (tourData: {
+    title: string;
+    description: string;
+    status: string;
+    steps: Array<{
+      title: string;
+      description: string;
+      selector: string;
+      button_text?: string;
+      bg_color?: string;
+      text_color?: string;
+      highlight_color?: string;
+    }>;
+  }) => {
+    if (tourData.status !== 'active' && tourData.status !== 'paused') {
+      setError('Invalid status');
+      return;
+    }
+
+    if (tourData.steps.length < 5) {
+      setError('Tour must have at least 5 steps');
+      return;
+    }
+    try {
+      const tourId = await createTour({
+        title: tourData.title,
+        description: tourData.description,
+        status: tourData.status,
+      });
+
+      await Promise.all(
+        tourData.steps.map((step) =>
+          createStep({
+            ...step,
+            tour_id: tourId,
+            started: 0,
+            skipped: 0,
+            completed: 0,
+          })
+        )
+      );
+
+      console.log('Tour and steps created successfully!');
+    } catch (err) {
+      console.error('Error creating tour and steps:', err);
+    }
+  };
+
+  const handleSave = async () => {
     const payload = {
-      tour: {
-        id: 4,
-        title: tourTitle,
-        description: tourDesc,
-        views: 0,
-        status: 'active',
-      },
+      title: tourTitle,
+      description: tourDesc,
+      status: tourStatus.toLowerCase(),
+      steps: steps,
     };
-    onSave(payload);
+
+    if (!tourTitle || !tourDesc || !tourStatus) {
+      setError('Please provide the title, description and status');
+      return;
+    }
+
+    await handleTourCreation(payload);
     handleClose();
   };
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => setError(''), 3000);
+    }
+  }, [error]);
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -194,7 +246,6 @@ export default function CreateTourModal({
           </DialogTitle>
         </DialogHeader>
 
-        {/* Tour Info */}
         <div className="space-y-4 mt-4">
           <Input
             placeholder="Tour Title"
@@ -220,7 +271,6 @@ export default function CreateTourModal({
           </Select>
         </div>
 
-        {/* Steps Section */}
         <div className="mt-8 space-y-6">
           <h2 className="text-xl font-medium">Steps</h2>
 
@@ -228,7 +278,6 @@ export default function CreateTourModal({
             <Step key={idx} idx={idx} step={step} updateStep={updateStep} />
           ))}
 
-          {/* Add Step Button */}
           <Button
             onClick={addStep}
             className="flex items-center gap-2 w-full justify-center bg-black text-white rounded-xl py-2"
@@ -237,7 +286,8 @@ export default function CreateTourModal({
           </Button>
         </div>
 
-        {/* Actions */}
+        {error && <p className="text-red-400 text-center">{error}</p>}
+
         <div className="flex justify-end mt-8 gap-3">
           <Button
             variant="outline"
