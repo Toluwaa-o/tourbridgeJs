@@ -23,12 +23,9 @@ import { useRouter } from 'next/navigation';
 export default function MinimalistDashboard() {
   const router = useRouter();
 
-  const [open, setOpen] = useState(false);
-
   const { user, isSignedIn, isLoaded, signOut } = useAuth();
 
-  const trs = useQuery(api.tours.getToursByUser);
-  const [tours, setTours] = useState<Tour[] | undefined>(trs);
+  const tours = useQuery(api.tours.getToursByUser);
 
   const getInitials = (name: string | null | undefined) => {
     if (!name) return 'U';
@@ -40,80 +37,43 @@ export default function MinimalistDashboard() {
       .slice(0, 2);
   };
 
-  const handleLogOut = () => {
-    signOut();
-    router.push('/');
-  };
-
   return (
-    <main className="flex-1 p-10">
+    <main className="flex-1 py-5 px-10">
       <header className="flex items-center justify-between mb-12">
         <div>
-          <h2 className="text-3xl font-semibold">Your Tours</h2>
-          <p className="text-gray-500 text-sm">Manage onboarding experiences</p>
+          <h2 className="text-3xl font-semibold">
+            {(() => {
+              const hour = new Date().getHours();
+              if (hour < 12) return 'Good morning';
+              if (hour < 18) return 'Good afternoon';
+              return 'Good evening';
+            })()}
+          </h2>
+
+          <p className="text-gray-300 text-sm">
+            Here are your tours — manage and refine your onboarding experiences.
+          </p>
         </div>
 
         <div className="flex items-center gap-4">
           {!isLoaded ? (
             <div className="h-9 w-24 animate-pulse rounded-md bg-muted" />
           ) : isSignedIn && user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="h-9 w-9 rounded-full p-0 hover:bg-accent"
-                >
-                  <Avatar className="h-9 w-9">
-                    <AvatarImage
-                      src={user.imageUrl}
-                      alt={user.fullName || 'User'}
-                    />
-                    <AvatarFallback>
-                      {getInitials(user.fullName)}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent align="end" className="w-56">
-                <div className="flex items-center gap-3 p-3">
-                  <Avatar className="h-9 w-9">
-                    <AvatarImage
-                      src={user.imageUrl}
-                      alt={user.fullName || 'User'}
-                    />
-                    <AvatarFallback>
-                      {getInitials(user.fullName)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">{user.fullName}</span>
-                    <span className="text-xs text-muted-foreground">
-                      {user.primaryEmailAddress?.emailAddress}
-                    </span>
-                  </div>
-                </div>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem asChild>
-                  <Link href="/profile" className="cursor-pointer">
-                    <User className="mr-2 h-4 w-4" />
-                    Profile
-                  </Link>
-                </DropdownMenuItem>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem
-                  onClick={() => handleLogOut()}
-                  className="cursor-pointer text-destructive focus:text-destructive"
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sign out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex items-center gap-3 p-3">
+              <Avatar className="h-9 w-9">
+                <AvatarImage
+                  src={user.imageUrl}
+                  alt={user.fullName || 'User'}
+                />
+                <AvatarFallback>{getInitials(user.fullName)}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">{user.fullName}</span>
+                <span className="text-xs text-gray-300">
+                  {user.primaryEmailAddress?.emailAddress}
+                </span>
+              </div>
+            </div>
           ) : (
             <></>
           )}
@@ -135,16 +95,14 @@ export default function MinimalistDashboard() {
           <></>
         )}
 
-        <button
+        <Link
+          href={`/dashboard/create`}
           className="border-2 border-dashed border-gray-300 p-6 rounded-xl flex flex-col items-center justify-center hover:border-gray-400 transition text-gray-400 hover:text-gray-600"
-          onClick={() => setOpen(true)}
         >
           <Plus size={32} />
           <p className="mt-2 font-medium">Create New Tour</p>
-        </button>
+        </Link>
       </section>
-
-      <CreateTourModal close={() => setOpen(false)} open={open} />
     </main>
   );
 }

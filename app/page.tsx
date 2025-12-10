@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useReducer, useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FocusTrap } from 'focus-trap-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useAuthDialogs } from '@/hooks';
 import { Hero } from '@/components/landing/hero';
 import Features from '@/components/landing/features';
 import HowItWorks from '@/components/landing/how-it-works';
@@ -80,6 +79,7 @@ function tourReducer(state: TourState, action: TourAction): TourState {
 }
 
 const Page = () => {
+  const { openLogin, openSignup } = useAuthDialogs();
   const [state, dispatch] = useReducer(tourReducer, initialState);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
     typeof window !== 'undefined'
@@ -154,7 +154,9 @@ const Page = () => {
   return (
     <>
       {/* Mobile Menu State */}
-      <input type="checkbox" id="mobile-menu-toggle" className="hidden peer" />
+      <input title='mobile-menu-toggle' type="checkbox" id="mobile-menu-toggle" className="hidden peer" />
+
+      <Header />
 
       {/* Mobile Menu Overlay */}
       <div
@@ -175,18 +177,18 @@ const Page = () => {
             Pricing
           </a> */}
           <div className="flex flex-col gap-4 mt-4">
-            <a
-              href="#"
+            <div
+              onClick={openLogin}
               className="text-center py-3 rounded-lg border border-white/10 hover:bg-white/5"
             >
               Sign in
-            </a>
-            <a
-              href="#"
+            </div>
+            <div
+              onClick={openSignup}
               className="text-center py-3 rounded-lg bg-cyan-500 text-gray-950 font-semibold hover:bg-cyan-400"
             >
               Start free
-            </a>
+            </div>
           </div>
         </nav>
       </div>

@@ -16,7 +16,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useAuthDialogs, useEmailAuth } from '@/hooks/use-auth';
+import { useAuth, useAuthDialogs, useEmailAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 
 const loginSchema = z.object({
@@ -31,6 +31,7 @@ export function LoginDialog() {
 
   const { isLoginOpen, closeDialog, switchToSignup } = useAuthDialogs();
   const { signInWithEmail, isLoaded } = useEmailAuth();
+  const { isSignedIn } = useAuth()
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +48,10 @@ export function LoginDialog() {
   const onSubmit = async (data: LoginForm) => {
     setIsLoading(true);
     setError(null);
+
+    if (isSignedIn) {
+      router.push('/dashboard')
+    }
 
     const result = await signInWithEmail(data.email, data.password);
 
@@ -72,17 +77,17 @@ export function LoginDialog() {
     <Dialog open={isLoginOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md rounded-2xl border shadow-xl p-8">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold tracking-tight">
+          <DialogTitle className="text-2xl font-bold tracking-tight text-black">
             Welcome back
           </DialogTitle>
-          <DialogDescription className="text-sm text-muted-foreground">
+          <DialogDescription className="text-sm text-gray-600">
             Sign in to your account to continue
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 mt-6">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium">
+            <Label htmlFor="email" className="text-sm font-medium text-gray-600">
               Email
             </Label>
             <Input
@@ -98,13 +103,13 @@ export function LoginDialog() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-sm font-medium">
+            <Label htmlFor="password" className="text-sm font-medium text-gray-600">
               Password
             </Label>
             <Input
               id="password"
               type="password"
-              placeholder="••••••••"
+              placeholder="***********"
               className="rounded-xl h-11"
               {...register('password')}
             />
@@ -121,7 +126,7 @@ export function LoginDialog() {
 
           <Button
             type="submit"
-            className="w-full rounded-xl h-11 text-[15px] font-medium shadow-sm"
+            className="w-full rounded-xl h-11 text-[15px] font-medium shadow-sm bg-[#22d3ee]"
             disabled={isLoading || !isLoaded}
           >
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

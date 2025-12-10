@@ -17,8 +17,15 @@ export const Aside = () => {
   };
 
   return (
-    <aside className="w-64 border-r h-screen sticky top-0 left-0 border-gray-200 p-6 hidden md:flex flex-col">
-      <h1 className="text-2xl font-bold tracking-tight mb-10">TourBridge</h1>
+    <aside className="w-64 border-r h-screen sticky top-0 left-0 bg-gray-950/80 border-gray-200 p-6 hidden md:flex flex-col">
+      <a href="#" className="flex items-center gap-2 group mb-10">
+        <div className="w-6 h-6 rounded bg-linear-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white text-xs font-bold tracking-tighter shadow-[0_0_15px_rgba(34,211,238,0.5)]">
+          T
+        </div>
+        <span className="text-white font-semibold tracking-tight text-sm group-hover:text-cyan-400 transition-colors">
+          TourBridgeJS
+        </span>
+      </a>
 
       <nav className="flex-1 space-y-1 text-sm">
         <NavItem
@@ -36,8 +43,8 @@ export const Aside = () => {
         <NavItem
           icon={Code}
           label="Integrations"
-          active={pathname.startsWith('/documentation')}
-          page_link="/documentation"
+          active={pathname.startsWith('/docs')}
+          page_link="/docs"
         />
       </nav>
 
