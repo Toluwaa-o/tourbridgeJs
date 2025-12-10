@@ -12,13 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <div className="min-h-screen bg-white text-gray-900 flex font-sans">
-          <Aside />
-          {children}
-        </div>
-      </body>
-    </html>
+    <div className="min-h-screen bg-[#0B0F19] text-white flex font-sans">
+      <Aside />
+      {children}
+    </div>
   );
 }

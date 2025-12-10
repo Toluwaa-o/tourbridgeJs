@@ -90,17 +90,17 @@ export function SignupDialog() {
     <Dialog open={isSignupOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md rounded-2xl border shadow-xl p-8">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold tracking-tight">
+          <DialogTitle className="text-2xl font-bold tracking-tight text-black">
             Create your account
           </DialogTitle>
-          <DialogDescription className="text-sm text-muted-foreground">
+          <DialogDescription className="text-sm text-gray-600">
             Get started by entering your details below
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 mt-6">
           <div className="space-y-2">
-            <Label htmlFor="signup-email" className="text-sm font-medium">
+            <Label htmlFor="signup-email" className="text-sm font-medium text-gray-600">
               Email
             </Label>
             <Input
@@ -116,13 +116,13 @@ export function SignupDialog() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="signup-password" className="text-sm font-medium">
+            <Label htmlFor="signup-password" className="text-sm font-medium text-gray-600">
               Password
             </Label>
             <Input
               id="signup-password"
               type="password"
-              placeholder="••••••••"
+              placeholder="***********"
               className="rounded-xl h-11"
               {...register('password')}
             />
@@ -134,13 +134,13 @@ export function SignupDialog() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirm-password" className="text-sm font-medium">
+            <Label htmlFor="confirm-password" className="text-sm font-medium text-gray-600">
               Confirm Password
             </Label>
             <Input
               id="confirm-password"
               type="password"
-              placeholder="••••••••"
+              placeholder="***********"
               className="rounded-xl h-11"
               {...register('confirmPassword')}
             />
@@ -160,7 +160,7 @@ export function SignupDialog() {
 
           <Button
             type="submit"
-            className="w-full rounded-xl h-11 text-[15px] font-medium shadow-sm"
+            className="w-full rounded-xl h-11 text-[15px] font-medium shadow-sm bg-[#22d3ee]"
             disabled={isLoading || !isLoaded}
           >
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

@@ -117,12 +117,12 @@ export default function UpdateTourPage({ slug }: { slug: string }) {
     }, [error]);
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#0B0F19]">
             <div className="max-w-7xl mx-auto py-12 px-6">
                 {/* Header */}
                 <div className="mb-10">
-                    <h1 className="text-4xl font-bold text-gray-900">Update Tour</h1>
-                    <p className="text-lg text-gray-600 mt-2">Modify tour details and individual steps</p>
+                    <h1 className="text-4xl font-bold text-white">Update Tour</h1>
+                    <p className="text-lg text-gray-300 mt-2">Modify tour details and individual steps</p>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -239,7 +239,7 @@ export default function UpdateTourPage({ slug }: { slug: string }) {
                 )}
 
                 {/* Action Buttons */}
-                <div className="mt-10 flex justify-end gap-4 max-w-7xl">
+                <div className="mt-10 flex justify-end gap-4 max-w-7xl text-black">
                     <Button
                         variant="outline"
                         size="lg"

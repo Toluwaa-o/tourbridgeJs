@@ -15,7 +15,7 @@ export const TourCard = ({
   return (
     <div className="bg-white border border-gray-200 p-6 rounded-xl shadow-sm hover:shadow-md transition flex flex-col justify-between">
       <Link href={`/dashboard/tours/${id}`} className="flex-1">
-        <h3 className="text-lg font-semibold mb-1">{title}</h3>
+        <h3 className="text-lg font-semibold mb-1 text-[#0B0F19]">{title}</h3>
         <p className="text-gray-500 mb-4 text-sm">{desc}</p>
       </Link>
 

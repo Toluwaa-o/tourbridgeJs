@@ -1,15 +1,15 @@
 'use client';
 
-import { TourCardMain } from '@/components/dashboard/tour-card-main';
 import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import Link from 'next/link';
+import { TourCard } from '@/components/dashboard/tour-card';
 
 export default function ToursPage() {
   const tours = useQuery(api.tours.getToursByUser);
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 p-10">
+    <div className="min-h-screen w-full bg-[#0B0F19] text-white p-10">
       <header className="flex items-center justify-between mb-10">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Tours</h1>
@@ -19,7 +19,7 @@ export default function ToursPage() {
         </div>
         <Link
           href={`/dashboard/create`}
-          className="px-4 py-2 rounded-xl bg-black text-white text-sm font-medium shadow hover:opacity-90 transition"
+          className="px-4 py-2 rounded-xl bg-green-600 text-white text-sm font-medium shadow hover:opacity-90 transition"
         >
           + New Tour
         </Link>
@@ -27,7 +27,12 @@ export default function ToursPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {tours?.length ? (
-          tours.map((t, i) => <TourCardMain key={i} t={t} />)
+          tours.map((t, i) =>
+            <TourCard id={t._id}
+              key={t._id}
+              title={t.title}
+              desc={t.description}
+              status={t.status} />)
         ) : (
           <p>You have not created any tours. Lets change that!</p>
         )}
