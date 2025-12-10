@@ -6,7 +6,7 @@
     "dev": "pnpm run dev:next & pnpm run dev:convex",
     "dev:next": "next dev",
     "dev:convex": "convex dev",
-    "build": "convex build && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
