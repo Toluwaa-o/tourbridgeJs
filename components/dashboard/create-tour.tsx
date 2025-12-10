@@ -126,7 +126,7 @@ export default function CreateTourPage() {
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 w-full">
       <div className="max-w-7xl mx-auto py-12 px-6">
         {/* Header */}
         <div className="mb-10 flex items-center justify-between">
