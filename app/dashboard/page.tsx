@@ -50,7 +50,7 @@ export default function MinimalistDashboard() {
             })()}
           </h2>
 
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-300 text-sm">
             Here are your tours — manage and refine your onboarding experiences.
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function MinimalistDashboard() {
               </Avatar>
               <div className="flex flex-col">
                 <span className="text-sm font-medium">{user.fullName}</span>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-gray-300">
                   {user.primaryEmailAddress?.emailAddress}
                 </span>
               </div>
