@@ -123,25 +123,23 @@ const DocsPage = () => {
                                     <div className="w-3 h-3 rounded-full bg-yellow-500/20"></div>
                                     <div className="w-3 h-3 rounded-full bg-green-500/20"></div>
                                     <span className="ml-auto text-xs text-slate-500 font-mono">
-                                        tour-config.ts
+                                        index.html
                                     </span>
                                 </div>
                                 <div className="p-6">
                                     <SyntaxHighlighter
-                                        language="typescript"
+                                        language="html"
                                         style={vscDarkPlus}
                                         customStyle={{ margin: 0, background: 'transparent' }}
                                     >
-                                        {`import { initTour } from "@tour/sdk";
+                                        {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
+<script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
 
-initTour({
-  tourId: "onboarding-v1",
-  steps: [
-    { target: "#hero-cta", content: "Start here!" },
-    { target: "#dashboard", content: "View stats." }
-  ],
-  analytics: true
-});`}
+<script>
+document.getElementById("start").addEventListener("click", () => {
+  window.InitTour({});
+});
+</script>`}
                                     </SyntaxHighlighter>
                                 </div>
                             </div>
@@ -172,6 +170,7 @@ initTour({
                     {/* Mobile Sidebar */}
                     <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-white/5 p-4 z-50">
                         <select
+                            title='sections'
                             value={activeSection}
                             onChange={(e) => scrollToSection(e.target.value)}
                             className="w-full bg-gray-900 border border-white/10 rounded-lg px-3 py-2 text-white"
@@ -202,12 +201,15 @@ initTour({
                             <div className="space-y-8">
                                 <div>
                                     <h3 className="text-xl font-medium text-white mb-4">
-                                        Step 1 — Install
+                                        Step 1 — Embed Scripts
                                     </h3>
+                                    <p className="text-slate-400 mb-4">
+                                        This is our own embedded stuff workings. You will need to include two script tags in your HTML, one for convex and the other for the tourbridge.js
+                                    </p>
                                     <div className="space-y-4">
                                         <div>
                                             <p className="text-slate-400 mb-2">
-                                                CDN (Recommended for quick prototyping)
+                                                Add these scripts to your HTML head section:
                                             </p>
                                             <div className="relative">
                                                 <SyntaxHighlighter
@@ -215,18 +217,20 @@ initTour({
                                                     style={vscDarkPlus}
                                                     customStyle={{ margin: 0 }}
                                                 >
-                                                    {`<script src="https://cdn.example.com/tour-widget.min.js"></script>`}
+                                                    {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
+<script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>`}
                                                 </SyntaxHighlighter>
                                                 <button
                                                     onClick={() =>
                                                         copyToClipboard(
-                                                            '<script src="https://cdn.example.com/tour-widget.min.js"></script>',
-                                                            'cdn'
+                                                            `<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
+<script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>`,
+                                                            'scripts'
                                                         )
                                                     }
                                                     className="absolute top-2 right-2 p-2 rounded bg-gray-800 hover:bg-gray-700 transition-colors"
                                                 >
-                                                    {copiedCode === 'cdn' ? (
+                                                    {copiedCode === 'scripts' ? (
                                                         <svg
                                                             className="w-4 h-4 text-green-400"
                                                             fill="none"
@@ -257,58 +261,9 @@ initTour({
                                                     )}
                                                 </button>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <p className="text-slate-400 mb-2">
-                                                NPM/Yarn (For production apps)
+                                            <p className="text-slate-400 mt-2">
+                                                For the tourbridge.js, make sure you're passing your tourId from your dashboard
                                             </p>
-                                            <div className="relative">
-                                                <SyntaxHighlighter
-                                                    language="bash"
-                                                    style={vscDarkPlus}
-                                                    customStyle={{ margin: 0 }}
-                                                >
-                                                    {`npm i @tour/sdk
-# or
-yarn add @tour/sdk`}
-                                                </SyntaxHighlighter>
-                                                <button
-                                                    onClick={() =>
-                                                        copyToClipboard('npm i @tour/sdk', 'npm')
-                                                    }
-                                                    className="absolute top-2 right-2 p-2 rounded bg-gray-800 hover:bg-gray-700 transition-colors"
-                                                >
-                                                    {copiedCode === 'npm' ? (
-                                                        <svg
-                                                            className="w-4 h-4 text-green-400"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth={2}
-                                                                d="M5 13l4 4L19 7"
-                                                            />
-                                                        </svg>
-                                                    ) : (
-                                                        <svg
-                                                            className="w-4 h-4 text-slate-400"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth={2}
-                                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                                                            />
-                                                        </svg>
-                                                    )}
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -393,12 +348,222 @@ initTour({
 
                                 <div>
                                     <h3 className="text-xl font-medium text-white mb-4">
-                                        Step 3 — Embed & Run
+                                        Step 3 — Demo
                                     </h3>
                                     <p className="text-slate-400 mb-4">
-                                        Paste the script tag in your HTML head or import the module.
-                                        Refresh your page and watch the tour guide your users!
+                                        For demo:
                                     </p>
+                                    <div className="relative">
+                                        <SyntaxHighlighter
+                                            language="html"
+                                            style={vscDarkPlus}
+                                            customStyle={{ margin: 0 }}
+                                        >
+                                            {`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tour Demo Page</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        background-color: #f5f5f5;
+      }
+
+      /* Navbar */
+      #navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #3f51b5;
+        color: white;
+        padding: 1rem 2rem;
+      }
+
+      #navbar a {
+        color: white;
+        text-decoration: none;
+        margin-left: 1rem;
+        font-weight: 500;
+      }
+
+      /* Welcome Section */
+      #welcome {
+        text-align: center;
+        padding: 4rem 2rem;
+        background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fit=crop&w=1200&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+      }
+
+      #welcome h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      #welcome p {
+        font-size: 1.2rem;
+      }
+
+      /* Main Layout */
+      .container {
+        display: flex;
+        margin: 2rem;
+        gap: 2rem;
+      }
+
+      /* Sidebar */
+      #sidebar {
+        width: 250px;
+        background-color: #ffffff;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      #sidebar h2 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: #3f51b5;
+      }
+
+      #sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      #sidebar li {
+        margin: 1rem 0;
+        font-weight: 500;
+      }
+
+      /* Main Content */
+      .main {
+        flex: 1;
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Search Bar */
+      #search-bar {
+        display: flex;
+        margin-bottom: 2rem;
+      }
+
+      #search-bar input {
+        flex: 1;
+        padding: 0.8rem;
+        border-radius: 4px 0 0 4px;
+        border: 1px solid #ccc;
+        outline: none;
+      }
+
+      #search-bar button {
+        padding: 0.8rem 1rem;
+        border: none;
+        background-color: #3f51b5;
+        color: white;
+        font-weight: bold;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+      }
+
+      /* Profile Settings */
+      #profile-settings {
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      #profile-settings img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #3f51b5;
+      }
+
+      #profile-settings h3 {
+        margin: 1rem 0 0.5rem 0;
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      #profile-settings p {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav id="navbar">
+      <div>Tour Demo</div>
+      <div>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#" id="start">Start</a>
+      </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="welcome">
+      <h1>Welcome to the Tour</h1>
+      <p>Follow along to explore the key features of our platform.</p>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Sidebar -->
+      <aside id="sidebar">
+        <h2>Quick Links</h2>
+        <ul>
+          <li>Dashboard</li>
+          <li>Messages</li>
+          <li>Settings</li>
+          <li>Support</li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="main">
+        <!-- Search Bar -->
+        <div id="search-bar">
+          <input type="text" placeholder="Search..." />
+          <button>Go</button>
+        </div>
+
+        <!-- Profile Settings -->
+        <div id="profile-settings">
+          <img
+            src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?fit=crop&w=200&q=80"
+            alt="Profile"
+          />
+          <h3>Jane Doe</h3>
+          <p>Member since 2023</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
+   <script data-tourId="tour_1" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
+    <script>
+      document.getElementById("start").addEventListener("click", () => {
+        window.InitTour({});
+      });
+    </script>
+  </body>
+</html>`}
+                                        </SyntaxHighlighter>
+                                    </div>
                                 </div>
                             </div>
                         </motion.section>

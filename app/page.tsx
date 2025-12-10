@@ -145,7 +145,7 @@ const Page = () => {
   return (
     <>
       {/* Mobile Menu State */}
-      <input type="checkbox" id="mobile-menu-toggle" className="hidden peer" />
+      <input title='mobile-menu-toggle' type="checkbox" id="mobile-menu-toggle" className="hidden peer" />
 
       <Header />
 
@@ -289,7 +289,7 @@ const Page = () => {
                     <div className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
                       Step 1 of 5
                     </div>
-                    <button className="text-slate-500 hover:text-white">
+                    <button aria-label='next' className="text-slate-500 hover:text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
@@ -720,6 +720,7 @@ const Page = () => {
                   </span>
                   <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                     <input
+                      title='toggle'
                       type="checkbox"
                       name="toggle"
                       id="toggle-spotlight"
@@ -739,6 +740,7 @@ const Page = () => {
                   </span>
                   <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                     <input
+                      title='toggle'
                       type="checkbox"
                       name="toggle"
                       id="toggle-avatar"
@@ -794,7 +796,7 @@ const Page = () => {
                       <p className="text-[10px] text-slate-400">Step 2 of 4</p>
                     </div>
                   </div>
-                  <button className="text-slate-500 hover:text-white">
+                  <button aria-label='next' className="text-slate-500 hover:text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
