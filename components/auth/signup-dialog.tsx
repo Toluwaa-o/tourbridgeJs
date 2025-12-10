@@ -37,7 +37,6 @@ export function SignupDialog() {
 
   const { isSignupOpen, closeDialog, switchToLogin } = useAuthDialogs();
   const { signUpWithEmail, isLoaded } = useEmailAuth();
-
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
