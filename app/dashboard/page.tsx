@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function MinimalistDashboard() {
-  const router = useRouter()
+  const router = useRouter();
 
   const { user, isSignedIn, isLoaded, signOut } = useAuth();
 
@@ -44,9 +44,9 @@ export default function MinimalistDashboard() {
           <h2 className="text-3xl font-semibold">
             {(() => {
               const hour = new Date().getHours();
-              if (hour < 12) return "Good morning";
-              if (hour < 18) return "Good afternoon";
-              return "Good evening";
+              if (hour < 12) return 'Good morning';
+              if (hour < 18) return 'Good afternoon';
+              return 'Good evening';
             })()}
           </h2>
 
@@ -55,9 +55,7 @@ export default function MinimalistDashboard() {
           </p>
         </div>
 
-
         <div className="flex items-center gap-4">
-
           {!isLoaded ? (
             <div className="h-9 w-24 animate-pulse rounded-md bg-muted" />
           ) : isSignedIn && user ? (
@@ -67,9 +65,7 @@ export default function MinimalistDashboard() {
                   src={user.imageUrl}
                   alt={user.fullName || 'User'}
                 />
-                <AvatarFallback>
-                  {getInitials(user.fullName)}
-                </AvatarFallback>
+                <AvatarFallback>{getInitials(user.fullName)}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
                 <span className="text-sm font-medium">{user.fullName}</span>
@@ -78,7 +74,9 @@ export default function MinimalistDashboard() {
                 </span>
               </div>
             </div>
-          ) : <></>}
+          ) : (
+            <></>
+          )}
         </div>
       </header>
 
@@ -97,7 +95,8 @@ export default function MinimalistDashboard() {
           <></>
         )}
 
-        <Link href={`/dashboard/create`}
+        <Link
+          href={`/dashboard/create`}
           className="border-2 border-dashed border-gray-300 p-6 rounded-xl flex flex-col items-center justify-center hover:border-gray-400 transition text-gray-400 hover:text-gray-600"
         >
           <Plus size={32} />

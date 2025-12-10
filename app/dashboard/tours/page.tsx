@@ -27,12 +27,15 @@ export default function ToursPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {tours?.length ? (
-          tours.map((t, i) =>
-            <TourCard id={t._id}
+          tours.map((t, i) => (
+            <TourCard
+              id={t._id}
               key={t._id}
               title={t.title}
               desc={t.description}
-              status={t.status} />)
+              status={t.status}
+            />
+          ))
         ) : (
           <p>You have not created any tours. Lets change that!</p>
         )}
