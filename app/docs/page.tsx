@@ -22,10 +22,6 @@ const DocsPage = () => {
 
   const sections = [
     { id: 'quick-start', title: 'Quick Start' },
-    { id: 'configuration', title: 'Configuration' },
-    { id: 'event-hooks', title: 'Event Hooks' },
-    { id: 'analytics', title: 'Analytics' },
-    { id: 'authentication', title: 'Authentication' },
     { id: 'accessibility', title: 'Accessibility' },
     { id: 'faq', title: 'FAQ' },
   ];
@@ -79,7 +75,7 @@ const DocsPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10"
             >
-              Configure, and ship guided tours in minutes.
+              Configure and ship guided tours in minutes.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
