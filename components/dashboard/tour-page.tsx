@@ -55,14 +55,12 @@ export const TourPage = ({ slug }: { slug: string }) => {
             </CardContent>
           </Card>
 
-          {/* Metric 2: Completion Rate */}
+          {/* Metric 2: Total Steps */}
           <Card className="rounded-xl bg-white/5 border-white/10 shadow-md backdrop-blur-md h-40 flex flex-col justify-center">
             <CardContent className="p-4 text-center">
-              <h2 className="text-xs text-white">Completion Rate</h2>
+              <h2 className="text-xs text-white">Total Steps</h2>
               <p className="text-3xl font-bold mt-2 text-[#34d399]">
-                {steps?.length && steps[0].started
-                  ? Math.round((steps[steps.length - 1].completed / steps[0].started) * 100) + '%'
-                  : '—'}
+                {steps?.length && steps.length} Steps
               </p>
             </CardContent>
           </Card>
