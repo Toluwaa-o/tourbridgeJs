@@ -137,8 +137,8 @@ const HowItWorks = () => {
                 {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
 <script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
 <script>
-    document.getElementById("start").addEventListener("click", () => {
-    window.InitTour({});
+    document.addEventListener("DOMContentLoaded", () => {
+    window.InitTour({"tour_id": "12345"});
     });
 </script>`}
               </SyntaxHighlighter>

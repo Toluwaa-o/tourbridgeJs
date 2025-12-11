@@ -118,18 +118,14 @@ export const deleteStepsByTour = mutation({
 type StepAction = 'started' | 'completed' | 'skipped';
 
 export const updateStats = mutation({
-  args: { stepId: v.id('steps'), action: v.string() },
+  args: { stepId: v.id('steps'), action: v.union(v.literal("started"), v.literal("completed"), v.literal("skipped")) },
   handler: async (ctx, { stepId, action }) => {
-    const step = await ctx.db.get(stepId);
-    if (!step) throw new Error('Step not found');
-
-    if (!['started', 'completed', 'skipped'].includes(action)) {
-      throw new Error('Invalid action');
-    }
-    const key = action as StepAction;
-
-    const updatedValue = (step[key] || 0) + 1;
-
-    return await ctx.db.patch(stepId, { [key]: updatedValue });
+    const step = await ctx.db.get(stepId)
+    if (!step) throw new Error("Step not found")
+    const update: any = {}
+    if (action === "started") update.started = (step.started || 0) + 1
+    if (action === "completed") update.completed = (step.completed || 0) + 1
+    if (action === "skipped") update.skipped = (step.skipped || 0) + 1
+    return ctx.db.patch(stepId, update)
   },
-});
+})
