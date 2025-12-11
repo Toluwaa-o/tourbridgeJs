@@ -14,6 +14,16 @@ export const getStepsByTour = query({
   },
 });
 
+export const getByTourId = query({
+  args: { tour_id: v.id('tours') },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query('steps')
+      .withIndex('by_tour', (q) => q.eq('tour_id', args.tour_id))
+      .collect();
+  },
+});
+
 export const createStep = mutation({
   args: {
     tour_id: v.id('tours'),
@@ -63,8 +73,6 @@ export const updateStep = mutation({
     const tour = await ctx.db.get(step.tour_id);
     if (!tour) throw new Error('Parent tour not found');
 
-    checkOwnership(ctx, tour.user_id);
-
     const { id, ...updates } = args;
     return await ctx.db.patch(id, updates);
   },
@@ -104,5 +112,24 @@ export const deleteStepsByTour = mutation({
     }
 
     return { success: true, deleted: steps.length };
+  },
+});
+
+type StepAction = 'started' | 'completed' | 'skipped';
+
+export const updateStats = mutation({
+  args: { stepId: v.id('steps'), action: v.string() },
+  handler: async (ctx, { stepId, action }) => {
+    const step = await ctx.db.get(stepId);
+    if (!step) throw new Error('Step not found');
+
+    if (!['started', 'completed', 'skipped'].includes(action)) {
+      throw new Error('Invalid action');
+    }
+    const key = action as StepAction;
+
+    const updatedValue = (step[key] || 0) + 1;
+
+    return await ctx.db.patch(stepId, { [key]: updatedValue });
   },
 });

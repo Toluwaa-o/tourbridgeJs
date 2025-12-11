@@ -8,16 +8,16 @@
  * @module
  */
 
-import type * as checkPermissons from '../checkPermissons.js';
-import type * as steps from '../steps.js';
-import type * as tours from '../tours.js';
-import type * as users from '../users.js';
+import type * as checkPermissons from "../checkPermissons.js";
+import type * as steps from "../steps.js";
+import type * as tours from "../tours.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
   FilterApi,
   FunctionReference,
-} from 'convex/server';
+} from "convex/server";
 
 declare const fullApi: ApiFromModules<{
   checkPermissons: typeof checkPermissons;
@@ -36,7 +36,7 @@ declare const fullApi: ApiFromModules<{
  */
 export declare const api: FilterApi<
   typeof fullApi,
-  FunctionReference<any, 'public'>
+  FunctionReference<any, "public">
 >;
 
 /**
@@ -49,7 +49,7 @@ export declare const api: FilterApi<
  */
 export declare const internal: FilterApi<
   typeof fullApi,
-  FunctionReference<any, 'internal'>
+  FunctionReference<any, "internal">
 >;
 
 export declare const components: {};
