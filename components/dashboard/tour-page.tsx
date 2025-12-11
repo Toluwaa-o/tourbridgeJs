@@ -47,8 +47,8 @@ export const TourPage = ({ slug }: { slug: string }) => {
       {/* METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
         {/* Total Views */}
-        <Card className="rounded-xl bg-white/5 border-white/10 shadow backdrop-blur-md">
-          <CardContent className="p-4">
+        <Card className="rounded-xl bg-white/5 border-white/10 shadow backdrop-blur-md h-40">
+          <CardContent className="p-4 flex flex-col justify-center">
             <h2 className="text-xs text-white">Total Views</h2>
             <p className="text-3xl font-bold mt-2 text-[#38bdf8]">
               {steps?.length ? steps[0].started : 0}
@@ -57,24 +57,26 @@ export const TourPage = ({ slug }: { slug: string }) => {
         </Card>
 
         {/* Completion Rate */}
-        <Card className="rounded-xl bg-white/5 border-white/10 shadow backdrop-blur-md">
-          <CardContent className="p-4">
+        <Card className="rounded-xl bg-white/5 border-white/10 shadow backdrop-blur-md h-40">
+          <CardContent className="p-4 flex flex-col justify-center">
             <h2 className="text-xs text-white">Completion Rate</h2>
             <p className="text-3xl font-bold mt-2 text-[#34d399]">
               {steps?.length && steps[0].started
                 ? Math.round(
-                    (steps[steps.length - 1].completed / steps[0].started) * 100
-                  ) + '%'
+                  (steps[steps.length - 1].completed / steps[0].started) * 100
+                ) + '%'
                 : '—'}
             </p>
           </CardContent>
         </Card>
 
-        {/* WIDGET — NOW WIDER */}
-        <div className="md:col-span-2">
-          <WidgetScriptCard tourId={slug} />
-        </div>
+        <Card className="rounded-xl bg-white/5 border-white/10 shadow backdrop-blur-md md:col-span-2 h-40 overflow-auto">
+          <CardContent className="p-4">
+            <WidgetScriptCard tourId={slug} />
+          </CardContent>
+        </Card>
       </div>
+
 
       {/* STEPS + CHART */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
