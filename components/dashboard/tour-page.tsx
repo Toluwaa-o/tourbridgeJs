@@ -30,7 +30,7 @@ export const TourPage = ({ slug }: { slug: string }) => {
     : 0;
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-900 to-gray-950 text-white p-10 space-y-12">
+    <div className="min-h-screen bg-[#0B0F19] text-white p-10 space-y-12">
       {/* Header */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6">
         <div className="mb-4 md:mb-0">
