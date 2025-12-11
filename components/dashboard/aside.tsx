@@ -18,7 +18,7 @@ export const Aside = () => {
 
   return (
     <aside className="w-64 border-r h-screen sticky top-0 left-0 bg-gray-950/80 border-gray-200 p-6 hidden md:flex flex-col">
-      <a href="#" className="flex items-center gap-2 group mb-10">
+      <a href="/" className="flex items-center gap-2 group mb-10">
         <div className="w-6 h-6 rounded bg-linear-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white text-xs font-bold tracking-tighter shadow-[0_0_15px_rgba(34,211,238,0.5)]">
           T
         </div>
