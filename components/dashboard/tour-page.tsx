@@ -24,11 +24,10 @@ export const TourPage = ({ slug }: { slug: string }) => {
 
   return (
     <div className="min-h-screen w-full p-10 bg-linear-to-b from-[#0a0d14] to-[#0f1624] text-white space-y-12">
-      {/* HEADER */}
       <header className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-white/10 pb-6">
         <div className="mb-4 md:mb-0">
           <h1 className="text-4xl font-semibold tracking-tight">{tour?.title}</h1>
-          <p className="text-sm mt-2 text-gray-400">
+          <p className="text-sm mt-2 text-gray-300">
             Deep insights into how users interact with your tour.
           </p>
         </div>
@@ -36,39 +35,65 @@ export const TourPage = ({ slug }: { slug: string }) => {
         <Link
           href={`/dashboard/tours/${slug}/edit`}
           className="px-5 py-2.5 rounded-xl text-sm font-medium transition 
-                 bg-white text-black hover:bg-gray-200 shadow"
+             bg-white text-black hover:bg-gray-200 shadow"
         >
           Edit Tour
         </Link>
       </header>
 
-      {/* METRICS & WIDGET */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Metric cards */}
-        <Card className="rounded-xl bg-white/5 border-white/10 shadow-md backdrop-blur-md h-40 flex flex-col justify-center">
-          <CardContent className="p-4 text-center">
-            <h2 className="text-xs text-white">Total Views</h2>
-            <p className="text-3xl font-bold mt-2 text-[#38bdf8]">
-              {steps?.length ? steps[0].started : 0}
-            </p>
-          </CardContent>
-        </Card>
+      {/* TOP METRICS + WIDGET */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div className="grid grid-cols-2 gap-6 lg:col-span-2">
+          {/* Metric 1: Total Views */}
+          <Card className="rounded-xl bg-white/5 border-white/10 shadow-md backdrop-blur-md h-40 flex flex-col justify-center">
+            <CardContent className="p-4 text-center">
+              <h2 className="text-xs text-white">Total Views</h2>
+              <p className="text-3xl font-bold mt-2 text-[#38bdf8]">
+                {steps?.length ? steps[0].started : 0}
+              </p>
+            </CardContent>
+          </Card>
 
-        <Card className="rounded-xl bg-white/5 border-white/10 shadow-md backdrop-blur-md h-40 flex flex-col justify-center">
-          <CardContent className="p-4 text-center">
-            <h2 className="text-xs text-white">Completion Rate</h2>
-            <p className="text-3xl font-bold mt-2 text-[#34d399]">
-              {steps?.length && steps[0].started
-                ? Math.round(
-                  (steps[steps.length - 1].completed / steps[0].started) * 100
-                ) + '%'
-                : '—'}
-            </p>
-          </CardContent>
-        </Card>
+          {/* Metric 2: Completion Rate */}
+          <Card className="rounded-xl bg-white/5 border-white/10 shadow-md backdrop-blur-md h-40 flex flex-col justify-center">
+            <CardContent className="p-4 text-center">
+              <h2 className="text-xs text-white">Completion Rate</h2>
+              <p className="text-3xl font-bold mt-2 text-[#34d399]">
+                {steps?.length && steps[0].started
+                  ? Math.round((steps[steps.length - 1].completed / steps[0].started) * 100) + '%'
+                  : '—'}
+              </p>
+            </CardContent>
+          </Card>
 
-        {/* Widget Card */}
-        <div className="md:col-span-1 lg:col-span-1">
+          {/* Metric 3: Total Skipped */}
+          <Card className="rounded-xl bg-white/5 border-white/10 shadow-md backdrop-blur-md h-40 flex flex-col justify-center">
+            <CardContent className="p-4 text-center">
+              <h2 className="text-xs text-white">Skipped Steps</h2>
+              <p className="text-3xl font-bold mt-2 text-[#f87171]">
+                {steps?.reduce((sum, s) => sum + (s.skipped || 0), 0)}
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Metric 4: Avg Completion Rate */}
+          <Card className="rounded-xl bg-white/5 border-white/10 shadow-md backdrop-blur-md h-40 flex flex-col justify-center">
+            <CardContent className="p-4 text-center">
+              <h2 className="text-xs text-white">Avg Completion</h2>
+              <p className="text-3xl font-bold mt-2 text-[#facc15]">
+                {steps?.length
+                  ? Math.round(
+                    steps.reduce((sum, s) => sum + (s.started > 0 ? (s.completed / s.started) * 100 : 0), 0) /
+                    steps.length
+                  ) + '%'
+                  : '—'}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="lg:col-span-1">
           <WidgetScriptCard tourId={slug} />
         </div>
       </div>
@@ -77,22 +102,16 @@ export const TourPage = ({ slug }: { slug: string }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Steps overview */}
         <Card className="rounded-2xl bg-white/5 border-white/10 shadow-md backdrop-blur-md h-[550px] flex flex-col">
-          <CardContent className="p-6 flex-1 flex flex-col">
+          <CardContent className="p-6 flex-1 flex flex-col text-white">
             <h2 className="text-lg font-semibold mb-4">Steps Overview</h2>
             <div className="overflow-y-auto flex-1 pr-2 space-y-5 custom-scrollbar">
               {steps?.map((s, i) => {
-                const rate =
-                  s.started > 0
-                    ? Math.round((s.completed / s.started) * 100)
-                    : 0;
+                const rate = s.started > 0 ? Math.round((s.completed / s.started) * 100) : 0;
                 return (
-                  <div
-                    key={i}
-                    className="flex items-center justify-between pb-4 border-b border-white/10"
-                  >
+                  <div key={i} className="flex items-center justify-between pb-4 border-b border-white/10">
                     <div>
                       <p className="font-medium">{s.title}</p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-gray-300 mt-1">
                         {s.completed}/{s.started} completed
                       </p>
                     </div>
@@ -111,9 +130,7 @@ export const TourPage = ({ slug }: { slug: string }) => {
         {/* Analytics chart */}
         <Card className="rounded-2xl bg-white/5 border-white/10 shadow-md backdrop-blur-md lg:col-span-2 h-[550px]">
           <CardContent className="p-6 h-full">
-            <h2 className="text-lg font-semibold mb-6 text-white">
-              Analytics Tracking
-            </h2>
+            <h2 className="text-lg font-semibold mb-6 text-white">Analytics Tracking</h2>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={steps}>
                 <XAxis dataKey="title" stroke="#9ca3af" />
@@ -135,6 +152,5 @@ export const TourPage = ({ slug }: { slug: string }) => {
         </Card>
       </div>
     </div>
-
   );
 };
