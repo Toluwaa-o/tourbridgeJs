@@ -22,10 +22,6 @@ const DocsPage = () => {
 
   const sections = [
     { id: 'quick-start', title: 'Quick Start' },
-    { id: 'configuration', title: 'Configuration' },
-    { id: 'event-hooks', title: 'Event Hooks' },
-    { id: 'analytics', title: 'Analytics' },
-    { id: 'authentication', title: 'Authentication' },
     { id: 'accessibility', title: 'Accessibility' },
     { id: 'faq', title: 'FAQ' },
   ];
@@ -79,7 +75,7 @@ const DocsPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10"
             >
-              Install, configure, and ship guided tours in minutes.
+              Configure and ship guided tours in minutes.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -133,9 +129,9 @@ const DocsPage = () => {
 <script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
 
 <script>
-document.getElementById("start").addEventListener("click", () => {
-  window.InitTour({});
-});
+  document.addEventListener("DOMContentLoaded", () => {
+    window.InitTour({"tour_id": "12345"});
+  });
 </script>`}
                   </SyntaxHighlighter>
                 </div>
@@ -153,11 +149,10 @@ document.getElementById("start").addEventListener("click", () => {
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className={`block w-full text-left px-3 py-2 rounded-lg transition-colors ${
-                    activeSection === section.id
-                      ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
-                  }`}
+                  className={`block w-full text-left px-3 py-2 rounded-lg transition-colors ${activeSection === section.id
+                    ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    }`}
                 >
                   {section.title}
                 </button>
@@ -199,12 +194,11 @@ document.getElementById("start").addEventListener("click", () => {
               <div className="space-y-8">
                 <div>
                   <h3 className="text-xl font-medium text-white mb-4">
-                    Step 1 — Embed Scripts
+                    Step 1 — Embed Scripts and Initialize
                   </h3>
                   <p className="text-slate-400 mb-4">
-                    This is our own embedded stuff workings. You will need to
-                    include two script tags in your HTML, one for convex and the
-                    other for the tourbridge.js
+                    This is our own embedding link. You will need to
+                    include these script tags in your HTML, one for convex, one for the tourbridge.js and the last one to initialize the tour
                   </p>
                   <div className="space-y-4">
                     <div>
@@ -218,13 +212,23 @@ document.getElementById("start").addEventListener("click", () => {
                           customStyle={{ margin: 0 }}
                         >
                           {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
-<script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>`}
+<script src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    window.InitTour({"tour_id": "12345"});
+  });
+</script>`}
                         </SyntaxHighlighter>
                         <button
                           onClick={() =>
                             copyToClipboard(
                               `<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
-<script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>`,
+<script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    window.InitTour({"tour_id": "12345"});
+  });
+</script>`,
                               'scripts'
                             )
                           }
@@ -271,69 +275,7 @@ document.getElementById("start").addEventListener("click", () => {
 
                 <div>
                   <h3 className="text-xl font-medium text-white mb-4">
-                    Step 2 — Initialize
-                  </h3>
-                  <div className="relative">
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={vscDarkPlus}
-                      customStyle={{ margin: 0 }}
-                    >
-                      {`<script>
-document.getElementById("start").addEventListener("click", () => {
-  window.InitTour({});
-});
-</script>`}
-                    </SyntaxHighlighter>
-                    <button
-                      onClick={() =>
-                        copyToClipboard(
-                          `<script>
-document.getElementById("start").addEventListener("click", () => {
-  window.InitTour({});
-});
-</script>`,
-                          'init'
-                        )
-                      }
-                      className="absolute top-2 right-2 p-2 rounded bg-gray-800 hover:bg-gray-700 transition-colors"
-                    >
-                      {copiedCode === 'init' ? (
-                        <svg
-                          className="w-4 h-4 text-green-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          className="w-4 h-4 text-slate-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-medium text-white mb-4">
-                    Step 3 — Demo
+                    Step 2 — Demo
                   </h3>
                   <p className="text-slate-400 mb-4">For demo:</p>
                   <div className="relative">
@@ -344,206 +286,186 @@ document.getElementById("start").addEventListener("click", () => {
                     >
                       {`<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tour Demo Page</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        background-color: #f5f5f5;
-      }
 
-      /* Navbar */
-      #navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #3f51b5;
-        color: white;
-        padding: 1rem 2rem;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Test Page</title>
 
-      #navbar a {
-        color: white;
-        text-decoration: none;
-        margin-left: 1rem;
-        font-weight: 500;
-      }
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      height: 100vh;
+    }
 
-      /* Welcome Section */
-      #welcome {
-        text-align: center;
-        padding: 4rem 2rem;
-        background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fit=crop&w=1200&q=80");
-        background-size: cover;
-        background-position: center;
-        color: white;
-      }
+    /* Sidebar */
+    #sidebar-nav {
+      width: 220px;
+      background: #1e293b;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-      #welcome h1 {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-      }
+    #sidebar-nav h2 {
+      margin: 0;
+      font-size: 18px;
+    }
 
-      #welcome p {
-        font-size: 1.2rem;
-      }
+    #sidebar-nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 8px 0;
+      font-size: 15px;
+    }
 
-      /* Main Layout */
-      .container {
-        display: flex;
-        margin: 2rem;
-        gap: 2rem;
-      }
+    #sidebar-nav a:hover {
+      color: white;
+    }
 
-      /* Sidebar */
-      #sidebar {
-        width: 250px;
-        background-color: #ffffff;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
+    /* Main Content */
+    .main-area {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+    }
 
-      #sidebar h2 {
-        margin-top: 0;
-        font-size: 1.5rem;
-        color: #3f51b5;
-      }
+    /* Header */
+    header {
+      background: white;
+      padding: 16px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-      #sidebar ul {
-        list-style: none;
-        padding: 0;
-      }
+    #header-logo {
+      font-weight: bold;
+      font-size: 20px;
+      color: #0f172a;
+    }
 
-      #sidebar li {
-        margin: 1rem 0;
-        font-weight: 500;
-      }
+    /* Stats cards */
+    #stats-cards {
+      display: flex;
+      gap: 20px;
+      padding: 24px;
+    }
 
-      /* Main Content */
-      .main {
-        flex: 1;
-        background-color: #ffffff;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
+    .card {
+      flex: 1;
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
 
-      /* Search Bar */
-      #search-bar {
-        display: flex;
-        margin-bottom: 2rem;
-      }
+    .card h3 {
+      margin: 0 0 10px 0;
+    }
 
-      #search-bar input {
-        flex: 1;
-        padding: 0.8rem;
-        border-radius: 4px 0 0 4px;
-        border: 1px solid #ccc;
-        outline: none;
-      }
+    /* Activity Feed */
+    #activity-feed {
+      margin: 0 24px 24px;
+      padding: 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      flex-grow: 1;
+    }
 
-      #search-bar button {
-        padding: 0.8rem 1rem;
-        border: none;
-        background-color: #3f51b5;
-        color: white;
-        font-weight: bold;
-        border-radius: 0 4px 4px 0;
-        cursor: pointer;
-      }
+    #activity-feed ul {
+      margin: 0;
+      padding-left: 20px;
+    }
 
-      /* Profile Settings */
-      #profile-settings {
-        margin-top: 2rem;
-        text-align: center;
-      }
+    /* Footer */
+    #footer {
+      padding: 14px 24px;
+      background: #1e293b;
+      color: white;
+      text-align: center;
+      font-size: 14px;
+    }
 
-      #profile-settings img {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid #3f51b5;
-      }
+    /* Button */
+    .start-tour-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 14px 18px;
+      background: #3b82f6;
+      color: white;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+    }
+  </style>
+</head>
 
-      #profile-settings h3 {
-        margin: 1rem 0 0.5rem 0;
-        font-size: 1.5rem;
-        color: #333;
-      }
+<body>
 
-      #profile-settings p {
-        color: #666;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Navbar -->
-    <nav id="navbar">
-      <div>Tour Demo</div>
-      <div>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#" id="start">Start</a>
+  <!-- Sidebar -->
+  <nav id="sidebar-nav">
+    <h2>Menu</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Reports</a>
+    <a href="#">Settings</a>
+    <a href="#">Billing</a>
+  </nav>
+
+  <!-- Main Area -->
+  <div class="main-area">
+    <header>
+      <div id="header-logo">My Dashboard</div>
+    </header>
+
+    <section id="stats-cards">
+      <div class="card">
+        <h3>Users</h3>
+        <p>1,284</p>
       </div>
-    </nav>
-
-    <!-- Welcome Section -->
-    <section id="welcome">
-      <h1>Welcome to the Tour</h1>
-      <p>Follow along to explore the key features of our platform.</p>
+      <div class="card">
+        <h3>Revenue</h3>
+        <p>$45,920</p>
+      </div>
+      <div class="card">
+        <h3>Sessions</h3>
+        <p>8,213</p>
+      </div>
     </section>
 
-    <!-- Main Container -->
-    <div class="container">
-      <!-- Sidebar -->
-      <aside id="sidebar">
-        <h2>Quick Links</h2>
-        <ul>
-          <li>Dashboard</li>
-          <li>Messages</li>
-          <li>Settings</li>
-          <li>Support</li>
-        </ul>
-      </aside>
+    <section id="activity-feed">
+      <h3>Recent Activity</h3>
+      <ul>
+        <li>User John updated settings</li>
+        <li>New signup: Amelia</li>
+        <li>Payment received: $350</li>
+      </ul>
+    </section>
 
-      <!-- Main Content -->
-      <div class="main">
-        <!-- Search Bar -->
-        <div id="search-bar">
-          <input type="text" placeholder="Search..." />
-          <button>Go</button>
-        </div>
+    <footer id="footer">
+      © 2025 Dashboard Test
+    </footer>
+  </div>
 
-        <!-- Profile Settings -->
-        <div id="profile-settings">
-          <img
-            src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?fit=crop&w=200&q=80"
-            alt="Profile"
-          />
-          <h3>Jane Doe</h3>
-          <p>Member since 2023</p>
-        </div>
-      </div>
-    </div>
+  <script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
+  <script src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      window.InitTour({ tour_id: "j574gcmb74b5qzqw8myj4syq1d7x154k" });
+    });
+  </script>
+</body>
 
-    <script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
-   <script data-tourId="tour_1" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
-    <script>
-      document.getElementById("start").addEventListener("click", () => {
-        window.InitTour({});
-      });
-    </script>
-  </body>
 </html>`}
                     </SyntaxHighlighter>
                   </div>
@@ -551,54 +473,6 @@ document.getElementById("start").addEventListener("click", () => {
               </div>
             </motion.section>
 
-            {/* Accessibility */}
-            <motion.section
-              id="accessibility"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="mb-16"
-            >
-              <h2 className="text-3xl font-semibold text-white mb-8">
-                Accessibility Notes
-              </h2>
-              <div className="space-y-4">
-                <div className="p-4 rounded-lg bg-white/2 border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    Keyboard Navigation
-                  </h3>
-                  <p className="text-slate-400">
-                    Tab, Enter, Escape keys supported. Full keyboard
-                    accessibility.
-                  </p>
-                </div>
-                <div className="p-4 rounded-lg bg-white/2 border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    ARIA Labels
-                  </h3>
-                  <p className="text-slate-400">
-                    Proper ARIA roles and labels for screen readers.
-                  </p>
-                </div>
-                <div className="p-4 rounded-lg bg-white/2 border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    Reduced Motion
-                  </h3>
-                  <p className="text-slate-400">
-                    Respects prefers-reduced-motion settings.
-                  </p>
-                </div>
-                <div className="p-4 rounded-lg bg-white/2 border border-white/5">
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    Contrast
-                  </h3>
-                  <p className="text-slate-400">
-                    WCAG AA compliant color contrast ratios.
-                  </p>
-                </div>
-              </div>
-            </motion.section>
             {/* Accessibility */}
             <motion.section
               id="accessibility"
