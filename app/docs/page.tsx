@@ -124,6 +124,7 @@ const DocsPage = () => {
                     language="html"
                     style={vscDarkPlus}
                     customStyle={{ margin: 0, background: 'transparent' }}
+                    wrapLongLines={true}
                   >
                     {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
 <script data-tourId="yourtourId" src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
@@ -161,7 +162,7 @@ const DocsPage = () => {
           </aside>
 
           {/* Mobile Sidebar */}
-          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-white/5 p-4 z-50">
+          <div className="hidden fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-white/5 p-4 z-50">
             <select
               title="sections"
               value={activeSection}
@@ -177,7 +178,7 @@ const DocsPage = () => {
           </div>
 
           {/* Content */}
-          <div className="flex-1 px-6 lg:px-12 py-12 pb-24 lg:pb-12">
+          <div className="flex-1 px-6 lg:px-12 py-12 pb-24 lg:pb-12 w-full md:max-w-4xl  mx-auto">
             {/* Quick Start */}
             <motion.section
               id="quick-start"
@@ -205,11 +206,12 @@ const DocsPage = () => {
                       <p className="text-slate-400 mb-2">
                         Add these scripts to your HTML head section:
                       </p>
-                      <div className="relative">
+                      <div className="relative rounded-xl overflow-hidden border border-white/10 bg-[#0d1117] shadow-2xl overflow-x-auto">
                         <SyntaxHighlighter
                           language="html"
                           style={vscDarkPlus}
                           customStyle={{ margin: 0 }}
+                          wrapLongLines={true}
                         >
                           {`<script src="https://unpkg.com/convex@1.3.1/dist/browser.bundle.js"></script>
 <script src="https://venerable-churros-558104.netlify.app/tour-widget.js"></script>
@@ -278,13 +280,15 @@ const DocsPage = () => {
                     Step 2 — Demo
                   </h3>
                   <p className="text-slate-400 mb-4">For demo:</p>
-                  <div className="relative">
-                    <SyntaxHighlighter
-                      language="html"
-                      style={vscDarkPlus}
-                      customStyle={{ margin: 0 }}
-                    >
-                      {`<!DOCTYPE html>
+                  <div className="relative rounded-xl overflow-hidden border border-white/10 bg-[#0d1117] shadow-2xl overflow-x-auto">
+                    <div className="p-6">
+                      <SyntaxHighlighter
+                        language="html"
+                        style={vscDarkPlus}
+                        customStyle={{ margin: 0 }}
+                        wrapLongLines={true}
+                      >
+                        {`<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -467,7 +471,8 @@ const DocsPage = () => {
 </body>
 
 </html>`}
-                    </SyntaxHighlighter>
+                      </SyntaxHighlighter>
+                    </div>
                   </div>
                 </div>
               </div>
